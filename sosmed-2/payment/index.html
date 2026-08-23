@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Pembayaran QRIS - Shine Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  color:#fff;
+  background:#0a0e1a;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,198,255,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0,114,255,0.10) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(168,85,247,0.06) 0%, transparent 60%);
+  animation:bgFloat 20s ease-in-out infinite alternate;
+  z-index:0;
+  pointer-events:none;
+}
+@keyframes bgFloat{
+  0%{transform:translate(0,0) rotate(0deg)}
+  33%{transform:translate(2%,-2%) rotate(2deg)}
+  66%{transform:translate(-1%,3%) rotate(-1deg)}
+  100%{transform:translate(1%,-1%) rotate(1deg)}
+}
+.orb{
+  position:fixed;
+  border-radius:50%;
+  filter:blur(80px);
+  pointer-events:none;
+  z-index:0;
+  animation:orbPulse 6s ease-in-out infinite alternate;
+}
+.orb-1{width:400px;height:400px;top:-100px;right:-100px;background:rgba(0,198,255,0.10);animation-delay:0s}
+.orb-2{width:300px;height:300px;bottom:-50px;left:-50px;background:rgba(168,85,247,0.08);animation-delay:2s}
+.orb-3{width:200px;height:200px;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,114,255,0.06);animation-delay:4s}
+@keyframes orbPulse{
+  0%{transform:scale(0.8);opacity:0.6}
+  100%{transform:scale(1.2);opacity:1}
+}
+.card{
+  width:100%;
+  max-width:480px;
+  background:rgba(255,255,255,0.04);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-radius:28px;
+  padding:32px 28px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  position:relative;
+  z-index:1;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 40px 100px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:20%;
+  right:20%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,#00c6ff,#0072ff,#8b5cf6,transparent);
+  border-radius:100%;
+  filter:blur(2px);
+  opacity:0.5;
+}
+h2{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-0.5px;
+  background:linear-gradient(135deg,#f0f9ff 0%,#b6d4fe 40%,#a5b4fc 70%,#c4b5fd 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:2px;
+}
+.subtitle{
+  font-size:13px;
+  color:#94a3b8;
+  font-weight:300;
+  letter-spacing:0.5px;
+  margin-top:2px;
+}
+.qr-wrapper{
+  background:#fff;
+  border-radius:20px;
+  padding:20px;
+  margin:18px auto;
+  width:fit-content;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.qr-wrapper:hover{
+  transform:scale(1.02);
+  box-shadow:0 12px 40px rgba(0,0,0,0.4);
+}
+#qrisCanvas{
+  display:block;
+  border-radius:12px;
+}
+.unique-code{
+  background:rgba(30,41,59,0.6);
+  backdrop-filter:blur(8px);
+  padding:12px 16px;
+  border-radius:14px;
+  text-align:center;
+  font-size:20px;
+  font-weight:700;
+  color:#facc15;
+  margin:14px 0 10px 0;
+  border:1px solid rgba(250,204,21,0.15);
+  box-shadow:0 4px 20px rgba(250,204,21,0.05);
+  letter-spacing:1px;
+}
+.unique-code span{
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  font-weight:800;
+}
+.details{
+  font-size:13.5px;
+  line-height:1.8;
+  background:rgba(255,255,255,0.04);
+  padding:14px 16px;
+  border-radius:14px;
+  border-left:3px solid #00c6ff;
+  margin:8px 0 12px 0;
+  color:#e2e8f0;
+}
+.details strong{color:#f8fafc;font-weight:600}
+.details .discount-text{color:#22c55e;font-weight:600}
+.details .voucher-text{color:#facc15;font-weight:600}
+.gmail-display{
+  background:rgba(255,255,255,0.04);
+  padding:10px 16px;
+  border-radius:12px;
+  margin:8px 0 4px 0;
+  border:1px solid rgba(0,198,255,0.12);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.gmail-display .label{
+  color:#94a3b8;
+  font-size:12px;
+  font-weight:500;
+}
+.gmail-display .value{
+  color:#00ffaa;
+  font-size:14px;
+  font-weight:600;
+  word-break:break-all;
+}
+.gmail-display .value.not-set{
+  color:#ff6666;
+  font-style:italic;
+  font-weight:400;
+}
+input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
+  margin-top:12px;
+  font-size:14px;
+  color:#f1f5f9;
+  transition:all 0.25s ease;
+  outline:none;
+  backdrop-filter:blur(4px);
+  font-family:'Poppins',sans-serif;
+}
+input::placeholder{color:#94a3b8;font-weight:300}
+input:focus{
+  border-color:#00c6ff;
+  background:rgba(255,255,255,0.08);
+  box-shadow:0 0 0 4px rgba(0,198,255,0.10);
+}
+input:disabled{opacity:0.4;cursor:not-allowed}
+p{
+  color:#fca5a5;
+  font-size:13px;
+  line-height:1.7;
+  margin-top:16px;
+  margin-bottom:0;
+  padding:12px 14px;
+  background:rgba(239,68,68,0.06);
+  border-radius:14px;
+  border-left:3px solid #ef4444;
+  text-align:left;
+}
+.btn{
+  width:100%;
+  margin-top:16px;
+  padding:16px;
+  border-radius:999px;
+  border:none;
+  font-size:15px;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  cursor:pointer;
+  transition:all 0.25s ease;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(0,114,255,0.25);
+  font-family:'Poppins',sans-serif;
+}
+.btn:hover:not(:disabled){
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px rgba(0,114,255,0.35);
+  background:linear-gradient(135deg,#00d4ff,#0066ff);
+}
+.btn:active:not(:disabled){transform:scale(0.97)}
+.btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+#applyVoucher{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  box-shadow:0 8px 24px rgba(34,197,94,0.25);
+}
+#applyVoucher:hover:not(:disabled){
+  background:linear-gradient(135deg,#2dd4bf,#059669);
+  box-shadow:0 12px 32px rgba(34,197,94,0.35);
+}
+.muted{
+  text-align:center;
+  font-size:12px;
+  color:#94a3b8;
+  margin-top:16px;
+  font-weight:300;
+  letter-spacing:0.2px;
+}
+.voucher-status{
+  font-size:12px;
+  margin-top:8px;
+  text-align:center;
+  min-height:24px;
+}
+.voucher-status .active{color:#22c55e}
+.voucher-status .used{color:#ef4444}
+.voucher-status .info{color:#94a3b8}
+
+/* ===== BANNED PAGE ===== */
+.banned-page{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+.banned-card{
+  max-width:460px;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(20px);
+  padding:40px 30px;
+  border-radius:24px;
+  border:1px solid rgba(255,68,68,0.3);
+  box-shadow:0 0 60px rgba(255,68,68,0.1);
+}
+.banned-card .icon{font-size:64px;display:block;margin-bottom:16px}
+.banned-card h1{color:#ff4444;font-size:28px;margin-bottom:8px}
+.banned-card .banned-gmail{color:#00ffaa;font-size:16px;font-weight:600;word-break:break-all;margin:8px 0}
+.banned-card .banned-reason{
+  color:#f1f5f9;
+  font-size:14px;
+  line-height:1.8;
+  background:rgba(255,68,68,0.08);
+  padding:14px 18px;
+  border-radius:12px;
+  border-left:3px solid #ff4444;
+  text-align:left;
+  margin:12px 0;
+}
+.banned-card .banned-until{
+  color:#ffaa00;
+  font-size:13px;
+  font-weight:600;
+  margin:8px 0;
+}
+.banned-card .banned-current-time{
+  color:#94a3b8;
+  font-size:12px;
+  margin:4px 0 16px 0;
+}
+.banned-card .btn-appeal{
+  display:inline-block;
+  background:#ffaa0044;
+  color:#ffaa00;
+  border:1px solid #ffaa0055;
+  padding:12px 30px;
+  border-radius:30px;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  transition:0.3s;
+  font-family:'Poppins',sans-serif;
+  margin-top:8px;
+}
+.banned-card .btn-appeal:hover{
+  background:#ffaa0066;
+  transform:scale(1.02);
+}
+.banned-card .banned-id{
+  color:#666;
+  font-size:11px;
+  margin-top:12px;
+  word-break:break-all;
+}
+
+/* ===== WIB TIME DISPLAY ===== */
+.wib-time-display{
+  text-align:center;
+  color:#94a3b8;
+  font-size:11px;
+  margin-top:6px;
+  padding:4px 0;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+.wib-time-display .wib-label{
+  color:#666;
+  font-weight:300;
+}
+.wib-time-display .wib-value{
+  color:#00ffaa;
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+}
+
+@media(max-width:480px){
+  .card{padding:20px 16px;border-radius:20px}
+  h2{font-size:20px}
+  .qr-wrapper{padding:12px;margin:14px auto}
+  #qrisCanvas{width:200px;height:200px}
+  .unique-code{font-size:17px;padding:10px 12px}
+  .btn{font-size:14px;padding:14px}
+  input{font-size:13px;padding:12px 14px}
+  .banned-card{padding:28px 20px}
+  .banned-card h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- ===== BANNED CONTAINER (hidden by default) ===== -->
+<div id="bannedContainer" style="display:none;" class="banned-page">
+  <div class="banned-card">
+    <span class="icon">🚫</span>
+    <h1>Akses Diblokir</h1>
+    <p style="color:#94a3b8;font-size:14px;border:none;background:none;padding:0;margin:0;">Akun Anda telah diblokir</p>
+    <div class="banned-gmail" id="bannedGmail">-</div>
+    <div class="banned-reason" id="bannedReason">-</div>
+    <div class="banned-until" id="bannedUntil">-</div>
+    <div class="banned-current-time" id="bannedCurrentTime">-</div>
+    <a href="https://wa.me/6289518103883?text=Halo%20Admin%2C%20saya%20ingin%20mengajukan%20banding%20atas%20ban%20akun%20saya.%20Gmail%3A%20" 
+       target="_blank" 
+       class="btn-appeal">
+       📱 Ajukan Banding
+    </a>
+    <div class="banned-id" id="bannedUserId">-</div>
+  </div>
+</div>
+
+<!-- ===== QRIS CARD ===== -->
+<div id="qrisCard" class="card">
+  <h2>💳 Pembayaran QRIS</h2>
+  <div class="subtitle">✦ Shine Shop - Sosmed 2 ✦</div>
+  
+  <!-- ===== GMAIL DISPLAY (dari localStorage) ===== -->
+  <div class="gmail-display">
+    <span class="label">📧 Gmail:</span>
+    <span class="value" id="gmailDisplay">Belum diatur</span>
+  </div>
+  
+  <div class="qr-wrapper">
+    <canvas id="qrisCanvas" width="240" height="240"></canvas>
+  </div>
+  
+  <div class="unique-code">🔑 Kode Unik: <span id="uniqueCode">-</span></div>
+  
+  <div class="details" id="orderDetails"></div>
+  
+  <input type="text" id="voucherInput" placeholder="Kode Voucher (opsional)">
+  <button id="applyVoucher" class="btn">🎫 Gunakan Voucher</button>
+  <div class="voucher-status" id="voucherStatus"></div>
+  
+  <button id="confirmBtn" class="btn">✅ Cek Status Pembayaran</button>
+  
+  <div class="muted">⏳ Admin memproses maksimal 72 jam</div>
+  
+  <!-- ===== WIB REAL-TIME DISPLAY ===== -->
+  <div class="wib-time-display">
+    <span class="wib-label">🕐 WIB (GMT+7):</span>
+    <span class="wib-value" id="wibTimeDisplay">--:--:--</span>
+  </div>
+  
+  <p>📸 Screenshot seluruh transaksi serta bukti transfer untuk berjaga-jaga jika terdapat kendala, anda bisa menghubungi admin melalui CS Bot</p>
+</div>
+
+<script>
+// ===================== KONFIGURASI =====================
+const discordWebhook = "https://discord.com/api/webhooks/1482244989021851748/oq__kcKXWHJILOG96lbfFxfZKoKCLEqkLJrlSS_rTQ6YEhgSTnFL_Guu8ZulERNEmCZV";
+const GMAIL_BAN_URL = "/sosmed-2/payment/gmail.json";
+const WHATSAPP_NUMBER = "6289518103883";
+
+const p = new URLSearchParams(location.search);
+const trx = p.get("trx") || "-";
+const layanan = p.get("layanan") || "-";
+const total = Number(p.get("total") || 0);
+const target = p.get("target") || "-";
+
+const maintenance = false;
+if (maintenance === true) {
+  window.location.replace("/maintenance/");
+}
+
+function maskID(id) {
+  id = String(id || "-");
+  if (id.length <= 4) return id;
+  return id.slice(0, 2) + "**" + id.slice(-2);
+}
+const maskedTrx = maskID(trx);
+
+let originalTotal = total;
+let finalTotal = total;
+let appliedVoucher = null;
+let appliedDiscount = 0;
+let uniqueCode = 0;
+let transactionLocked = false;
+
+// ================= USER ID =================
+function generateUserID(){
+  return 'user-' + Math.random().toString(36).substring(2,10) + '-' + Date.now().toString(36);
+}
+async function getUserID(){
+  let id = localStorage.getItem("user_id");
+  if(!id){id = generateUserID();localStorage.setItem("user_id", id);}
+  return id;
+}
+
+// ================= GMAIL (dari localStorage) =================
+function getStoredGmail() {
+  return localStorage.getItem('user_gmail') || null;
+}
+
+function validateEmail(email) {
+  return email && email.includes('@') && email.includes('.') && email.length > 5;
+}
+
+// ================= WIB REAL-TIME (GMT+7) =================
+let wibInterval = null;
+let bannedInterval = null;
+
+/**
+ * Mengambil waktu saat ini.
+ * Jangan tambahkan +7 jam secara manual.
+ * Konversi WIB dilakukan oleh Intl.DateTimeFormat.
+ */
+function getWIBTime() {
+  return new Date();
+}
+
+/**
+ * Format tanggal + waktu WIB
+ */
+function formatWIB(date) {
+  return new Intl.DateTimeFormat('id-ID', {
+    timeZone: 'Asia/Jakarta',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).format(date);
+}
+
+/**
+ * Format jam WIB saja
+ */
+function formatWIBTime(date) {
+  return new Intl.DateTimeFormat('id-ID', {
+    timeZone: 'Asia/Jakarta',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).format(date);
+}
+
+/**
+ * Update jam WIB untuk display utama
+ */
+function updateWIBDisplay() {
+  const displayEl = document.getElementById('wibTimeDisplay');
+
+  if (!displayEl) return;
+
+  const now = getWIBTime();
+  displayEl.textContent = formatWIBTime(now);
+}
+
+/**
+ * Update waktu pada container BANNED
+ */
+function updateBannedWIBDisplay() {
+  const timeEl = document.getElementById('bannedCurrentTime');
+  const containerEl = document.getElementById('bannedContainer');
+
+  if (!timeEl || !containerEl) return;
+
+  // Jangan update jika container sedang disembunyikan
+  if (containerEl.style.display === 'none') return;
+
+  const now = getWIBTime();
+
+  timeEl.textContent =
+    '🕐 WIB (GMT+7): ' + formatWIB(now);
+}
+
+/**
+ * Memulai semua clock
+ */
+function startWIBClock() {
+  // Hentikan interval lama jika ada
+  if (wibInterval) {
+    clearInterval(wibInterval);
+    wibInterval = null;
+  }
+
+  if (bannedInterval) {
+    clearInterval(bannedInterval);
+    bannedInterval = null;
+  }
+
+  // Update langsung tanpa menunggu 1 detik
+  updateWIBDisplay();
+  updateBannedWIBDisplay();
+
+  // Update setiap 1 detik
+  wibInterval = setInterval(updateWIBDisplay, 1000);
+  bannedInterval = setInterval(updateBannedWIBDisplay, 1000);
+}
+
+/**
+ * Jalankan setelah DOM selesai dimuat
+ */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startWIBClock);
+} else {
+  startWIBClock();
+}
+// ================= CEK BANNED GMAIL =================
+async function checkGmailBanned(gmail) {
+  if (!gmail || !validateEmail(gmail)) return null;
+  
+  try {
+    const res = await fetch(GMAIL_BAN_URL + '?t=' + Date.now(), { cache: "no-store" });
+    if (!res.ok) return null;
+    
+    const list = await res.json();
+    if (!Array.isArray(list)) return null;
+    
+    const banned = list.find(item => 
+      item.Gmail && item.Gmail.toLowerCase() === gmail.toLowerCase()
+    );
+    
+    if (!banned) return null;
+    
+    if (banned["Dibanned sampai"]) {
+      const untilDate = new Date(banned["Dibanned sampai"]);
+      const now = getWIBTime();
+      
+      if (now > untilDate) {
+        return null;
+      }
+    }
+    
+    return banned;
+    
+  } catch (err) {
+    console.error('Error check banned:', err);
+    return null;
+  }
+}
+
+// ================= SHOW BANNED PAGE =================
+function showBannedPage(bannedData, userID, gmail) {
+  const bannedContainer = document.getElementById('bannedContainer');
+  const qrisCard = document.getElementById('qrisCard');
+  
+  qrisCard.style.display = 'none';
+  bannedContainer.style.display = 'flex';
+  
+  document.getElementById('bannedGmail').textContent = gmail || '-';
+  document.getElementById('bannedReason').textContent = bannedData.Alasan || 'Tidak ada keterangan';
+  document.getElementById('bannedUserId').textContent = '🆔 User ID: ' + (userID || '-');
+  
+  let untilText = '-';
+  if (bannedData["Dibanned sampai"]) {
+    const untilDate = new Date(bannedData["Dibanned sampai"]);
+    untilText = formatWIB(untilDate);
+  }
+  document.getElementById('bannedUntil').textContent = '⏳ Dibanned sampai: ' + untilText;
+  
+  // Update waktu WIB di halaman banned
+  updateBannedWIBDisplay();
+  
+  const appealLink = document.querySelector('.btn-appeal');
+  if (appealLink && gmail) {
+    appealLink.href = `https://wa.me/${WHATSAPP_NUMBER}?text=Halo%20Admin%2C%20saya%20ingin%20mengajukan%20banding%20atas%20ban%20akun%20saya.%20Gmail%3A%20${encodeURIComponent(gmail)}%0AUser%20ID%3A%20${encodeURIComponent(userID || '-')}`;
+  }
+}
+
+// ================= CEK BAN SEBELUM LOAD =================
+async function checkAndHandleBan() {
+  const gmail = getStoredGmail();
+  const userID = await getUserID();
+  
+  const gmailDisplay = document.getElementById('gmailDisplay');
+  if (gmailDisplay) {
+    if (gmail && validateEmail(gmail)) {
+      gmailDisplay.textContent = gmail;
+      gmailDisplay.className = 'value';
+    } else {
+      gmailDisplay.textContent = '⚠️ Belum diatur!';
+      gmailDisplay.className = 'value not-set';
+    }
+  }
+  
+  if (!gmail || !validateEmail(gmail)) {
+    console.warn('⚠️ Gmail belum diatur di localStorage');
+    return false;
+  }
+  
+  const bannedData = await checkGmailBanned(gmail);
+  if (bannedData) {
+    showBannedPage(bannedData, userID, gmail);
+    return true;
+  }
+  
+  return false;
+}
+
+// ================= LOCK LOCAL STORAGE =================
+function checkTransactionLockLocal() {
+  try {
+    const confirmed = JSON.parse(localStorage.getItem('confirmed_transactions') || '[]');
+    return confirmed.includes(trx);
+  } catch { return false; }
+}
+
+function saveTransactionLockLocal() {
+  try {
+    const confirmed = JSON.parse(localStorage.getItem('confirmed_transactions') || '[]');
+    if (!confirmed.includes(trx)) {
+      confirmed.push(trx);
+      localStorage.setItem('confirmed_transactions', JSON.stringify(confirmed));
+    }
+  } catch(e) { console.error("Gagal simpan lock:", e); }
+}
+
+// ================= VOUCHER SYSTEM =================
+function getUsedVouchers() {
+  try { return JSON.parse(localStorage.getItem('used_vouchers_' + trx) || '[]'); } 
+  catch { return []; }
+}
+
+function markVoucherUsed(code) {
+  try {
+    const used = getUsedVouchers();
+    if (!used.includes(code)) {
+      used.push(code);
+      localStorage.setItem('used_vouchers_' + trx, JSON.stringify(used));
+    }
+  } catch(e) { console.error("Gagal simpan voucher used:", e); }
+}
+
+function isVoucherUsed(code) {
+  return getUsedVouchers().includes(code);
+}
+
+// ================= QRIS =================
+function generateUniqueCode() {
+  if (!uniqueCode) {
+    uniqueCode = Math.floor(Math.random() * 50) + 1;
+  }
+  return uniqueCode;
+}
+
+function crc16(s){
+  let c=0xFFFF;
+  for(let i=0;i<s.length;i++){
+    c^=s.charCodeAt(i)<<8;
+    for(let j=0;j<8;j++){
+      c=c&0x8000?(c<<1)^0x1021:c<<1;
+    }
+  }
+  return (c&0xFFFF).toString(16).toUpperCase().padStart(4,'0');
+}
+
+function buildQR(a){
+  const str=String(parseInt(a));
+  const tag="54"+String(str.length).padStart(2,"0")+str;
+  const base="00020101021126670016COM.NOBUBANK.WWW01189360050300000907180214260818000016290303UMI51440014ID.CO.QRIS.WWW0215ID10265728797100303UMI5204481253033605802ID5918SHINE SHOP ID CELL6008SURABAYA61056011162070703A016304743A";
+  return base+tag+"6304"+crc16(base+tag+"6304");
+}
+
+// ================= UPDATE DISPLAY =================
+function updateDisplay(){
+  uniqueCode = generateUniqueCode();
+  document.getElementById('uniqueCode').textContent = uniqueCode;
+  
+  const totalDenganUnik = finalTotal + uniqueCode;
+  
+  let detailHtml = `
+  <strong>ID Transaksi:</strong> ${trx}<br>
+  <strong>Layanan:</strong> ${layanan}<br>
+  <strong>Target:</strong> ${target}<br>
+  <strong>Total:</strong> <s>Rp ${originalTotal.toLocaleString("id-ID")}</s><br>
+  `;
+  
+  if (appliedVoucher) {
+    detailHtml += `<strong>🎫 Voucher:</strong> <span class="voucher-text">${appliedVoucher}</span> <span class="discount-text">(Diskon Rp ${appliedDiscount.toLocaleString("id-ID")})</span><br>`;
+  }
+  
+  detailHtml += `<strong>Total Bayar:</strong> Rp ${totalDenganUnik.toLocaleString("id-ID")}`;
+  
+  document.getElementById('orderDetails').innerHTML = detailHtml;
+  
+  QRCode.toCanvas(document.getElementById('qrisCanvas'), buildQR(totalDenganUnik), { width:240 }, function(err){
+    if(err) return console.error(err);
+    const ctx = document.getElementById('qrisCanvas').getContext("2d");
+    const logo = new Image();
+    logo.src = "/home/logo.png";
+    logo.onload = function(){
+      const size = 50;
+      const x = (240 - size)/2;
+      const y = (240 - size)/2;
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(x-5,y-5,size+10,size+10);
+      ctx.drawImage(logo,x,y,size,size);
+    };
+  });
+}
+
+// ================= LOAD VOUCHER =================
+async function loadVoucher(){
+  try{
+    const r = await fetch("/sosmed-1/payment/voucher.json",{cache:"no-store"});
+    if(!r.ok) return [];
+    const data = await r.json();
+    return Array.isArray(data) ? data : [];
+  }catch{return []}
+}
+
+// ================= APPLY VOUCHER =================
+document.getElementById('applyVoucher').onclick = async function() {
+  const code = document.getElementById('voucherInput').value.trim().toUpperCase();
+  if(!code) return Swal.fire("Isi kode voucher","","warning");
+  
+  if (isVoucherUsed(code)) {
+    return Swal.fire({
+      title: "❌ Voucher Sudah Dipakai",
+      text: `Kode voucher "${code}" sudah digunakan untuk transaksi ini. Hanya bisa digunakan 1×.`,
+      icon: "error",
+      confirmButtonColor: "#22c55e"
+    });
+  }
+  
+  const list = await loadVoucher();
+  if(!list || list.length === 0) {
+    return Swal.fire("Error", "Gagal memuat data voucher", "error");
+  }
+  
+  const v = list.find(x => x.code && x.code.toUpperCase() === code);
+  if(!v) return Swal.fire("❌ Voucher tidak valid","","error");
+  
+  const minPurchase = v.min_purchase || 0;
+  if (originalTotal < minPurchase) {
+    return Swal.fire({
+      title: "❌ Minimal Pembelian",
+      text: `Minimal pembelian untuk voucher ini adalah Rp ${minPurchase.toLocaleString("id-ID")}`,
+      icon: "warning",
+      confirmButtonColor: "#22c55e"
+    });
+  }
+  
+  let discount = 0;
+  if (v.type === "percent") {
+    discount = originalTotal * (v.value / 100);
+    if (v.max_discount) discount = Math.min(discount, v.max_discount);
+  } else if (v.type === "fixed") {
+    discount = v.value;
+  } else {
+    return Swal.fire("❌ Tipe voucher tidak valid","","error");
+  }
+  
+  discount = Math.max(0, discount);
+  finalTotal = Math.max(originalTotal - discount, 0);
+  appliedVoucher = v.code;
+  appliedDiscount = Math.round(discount);
+  
+  markVoucherUsed(v.code);
+  
+  let discountText = `Rp ${discount.toLocaleString("id-ID")}`;
+  if (v.type === "percent") {
+    discountText += ` (${v.value}% dari total)`;
+  }
+  
+  document.getElementById('voucherStatus').innerHTML = `<span class="active">✅ Voucher ${v.code} berhasil digunakan! Diskon: ${discountText}</span>`;
+  
+  document.getElementById('voucherInput').disabled = true;
+  document.getElementById('voucherInput').style.opacity = '0.4';
+  this.disabled = true;
+  this.style.opacity = '0.4';
+  
+  updateDisplay();
+  
+  Swal.fire({
+    title: "✅ Berhasil!",
+    html: `Voucher <b>${v.code}</b> berhasil digunakan!<br>Diskon: <b>${discountText}</b>`,
+    icon: "success",
+    confirmButtonColor: "#22c55e"
+  });
+};
+
+// ================= CONFIRM =================
+document.getElementById('confirmBtn').onclick = async function() {
+  if (checkTransactionLockLocal()) {
+    return Swal.fire("Gagal", "Transaksi ini sudah dikonfirmasi sebelumnya!", "error");
+  }
+  
+  const gmail = getStoredGmail();
+  const userID = await getUserID();
+  const maskedUserID = maskID(userID);
+  const refCode = localStorage.getItem('referral_code') || "-";
+
+  if(!gmail || !validateEmail(gmail)) {
+    return Swal.fire("Lengkapi data", "Gmail belum diatur di profil Anda. Hubungi admin.", "warning");
+  }
+
+  const bannedData = await checkGmailBanned(gmail);
+  if (bannedData) {
+    return Swal.fire({
+      title: "🚫 Akses Diblokir",
+      text: "Gmail Anda terdaftar dalam daftar banned. Silakan ajukan banding.",
+      icon: "error",
+      confirmButtonColor: "#ff4444"
+    });
+  }
+
+  Swal.fire({title:"Mengirim...", didOpen:()=>Swal.showLoading()});
+  
+  const totalDenganUnik = finalTotal + uniqueCode;
+  
+  await fetch("/api/send-telegram",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      chat_id:"-1002112920606",
+      text:`
+🆕 Transaksi Baru Sosmed 2
+ID TRANSAKSI: ${maskedTrx}
+Layanan: ${layanan}
+Harga asli: Rp${originalTotal.toLocaleString("id-ID")}
+Total Bayar: Rp ${totalDenganUnik.toLocaleString("id-ID")}
+User ID: ${maskedUserID}
+Gmail: ${gmail}
+Referal Code: ${refCode}
+Voucher: ${appliedVoucher || "Tidak ada"} ${appliedVoucher ? `(Diskon Rp ${appliedDiscount.toLocaleString("id-ID")})` : ''}
+Order sekarang di shinedomain.my.id`
+    })
+  });
+  
+  await fetch(discordWebhook,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      content:`💰 Pembayaran Baru SOSMED 2\nID: ${trx}\nLayanan: ${layanan}\nHarga Asli: Rp${originalTotal.toLocaleString("id-ID")}\nTotal Bayar: Rp ${totalDenganUnik.toLocaleString("id-ID")}\nKode Unik: ${uniqueCode}\nTarget: ${target}\nVoucher: ${appliedVoucher || "-"}\nDiskon: ${appliedVoucher ? `Rp ${appliedDiscount.toLocaleString("id-ID")}` : "-"}\n📧 Gmail: ${gmail}\nUser ID: ${userID}\nReferral: ${refCode}`
+    })
+  });
+
+  saveTransactionLockLocal();
+
+  Swal.fire("Berhasil", "Konfirmasi pembayaran berhasil dikirim!", "success");
+  
+  this.disabled = true;
+  this.style.opacity = '0.5';
+  this.textContent = '✅ Transaksi Sudah Dikonfirmasi';
+};
+
+// ================= INIT =================
+(async function() {
+  // 1. CEK BAN GMAIL
+  const isBanned = await checkAndHandleBan();
+  
+  // 2. START WIB CLOCK (selalu jalan, untuk QRIS dan BANNED)
+  startWIBClock();
+  
+  if (isBanned) {
+    // Update banned time setiap detik (interval sudah jalan dari startWIBClock)
+    return;
+  }
+  
+  // 3. CEK LOCK TRANSAKSI
+  if (checkTransactionLockLocal()) {
+    transactionLocked = true;
+    const btn = document.getElementById('confirmBtn');
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    btn.textContent = '✅ Transaksi Sudah Dikonfirmasi';
+  }
+  
+  // 4. CEK VOUCHER TERPAKAI
+  const usedVouchers = getUsedVouchers();
+  if (usedVouchers.length > 0) {
+    const lastUsed = usedVouchers[usedVouchers.length - 1];
+    document.getElementById('voucherStatus').innerHTML = `<span class="used">⚠️ Voucher ${lastUsed} sudah digunakan untuk transaksi ini (1×)</span>`;
+    document.getElementById('voucherInput').disabled = true;
+    document.getElementById('voucherInput').style.opacity = '0.4';
+    document.getElementById('applyVoucher').disabled = true;
+    document.getElementById('applyVoucher').style.opacity = '0.4';
+  }
+  
+  // 5. UPDATE DISPLAY
+  updateDisplay();
+})();
+
+// ================= REFERRAL =================
+function ambilReferral() {
+  const savedRef = localStorage.getItem('referral_code');
+  const statusElement = document.getElementById('status-ref');
+  if (statusElement) {
+    if (savedRef) {
+      statusElement.innerHTML = `Terdeteksi! Kode referral Anda adalah: <strong>${savedRef}</strong>`;
+    } else {
+      statusElement.innerHTML = `Tidak ada kode referral yang tersimpan.`;
+    }
+  }
+  return savedRef;
+}
+ambilReferral();
+
+// ================= ANTI DEVTOOLS =================
+document.addEventListener("keydown", function(e){
+  if(e.key === "F12") e.preventDefault();
+  if(e.ctrlKey && e.shiftKey && ["I","J"].includes(e.key)) e.preventDefault();
+  if(e.ctrlKey && e.key === "u") e.preventDefault();
+});
+
+setInterval(() => {
+  const threshold = 160;
+  if (window.devtoolsOpen) return;
+  const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+  if (widthThreshold && !/Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    document.body.innerHTML = "<h1 style='color:gold;text-align:center;margin-top:40vh;'>🚫 Developer Tools Terdeteksi</h1>";
+  }
+}, 2000);
+
+console.log('💳 QRIS Payment - Sosmed 2 siap!');
+console.log('📧 Gmail diambil dari localStorage');
+console.log('🚫 Cek banned berdasarkan Gmail');
+console.log('🕐 WIB (GMT+7) real-time aktif untuk QRIS & BANNED');
+</script>
+</body>
+</html>
