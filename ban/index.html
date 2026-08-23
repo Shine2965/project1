@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Banned Gmail - Shine Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 30px 20px;
+            background: radial-gradient(circle at 20% 30%, #ff444410, transparent 50%),
+                        radial-gradient(circle at 80% 70%, #ff000010, transparent 50%),
+                        #0a0a0a;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 30px 28px;
+            border: 1px solid #ff444433;
+            box-shadow: 0 0 40px rgba(255,68,68,0.05);
+            margin-bottom: 20px;
+        }
+        .card h1 {
+            color: #ff4444;
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        .card .sub {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .card .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 12px 0 8px 0;
+        }
+        .card .stats .stat-item {
+            background: #0d0d0d;
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: 1px solid #ff444415;
+        }
+        .card .stats .stat-item .num {
+            color: #ff4444;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .card .stats .stat-item .label {
+            color: #888;
+            font-size: 12px;
+        }
+        .btn {
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 13px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-back {
+            background: #444;
+            color: #fff;
+        }
+        .btn-back:hover {
+            background: #555;
+        }
+        .btn-refresh {
+            background: #00ffaa22;
+            color: #00ffaa;
+            border: 1px solid #00ffaa44;
+        }
+        .btn-refresh:hover {
+            background: #00ffaa44;
+        }
+        .btn-appeal {
+            background: #ffaa0044;
+            color: #ffaa00;
+            border: 1px solid #ffaa0055;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+        .btn-appeal:hover {
+            background: #ffaa0066;
+        }
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .ban-item {
+            background: #0d0d0d;
+            border-radius: 14px;
+            padding: 16px 20px;
+            border-left: 4px solid #ff4444;
+            margin-bottom: 12px;
+            transition: 0.3s;
+            border: 1px solid #ff444415;
+            border-left-width: 4px;
+        }
+        .ban-item:hover {
+            border-color: #ff444455;
+            transform: translateX(4px);
+        }
+        .ban-item .gmail {
+            color: #00ffaa;
+            font-weight: 600;
+            font-size: 15px;
+            word-break: break-all;
+        }
+        .ban-item .reason {
+            color: #ddd;
+            font-size: 13px;
+            margin-top: 4px;
+            line-height: 1.6;
+        }
+        .ban-item .duration {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #888;
+        }
+        .ban-item .duration .until {
+            color: #ffaa00;
+            font-weight: 600;
+        }
+        .ban-item .duration .remaining {
+            color: #ff6666;
+            font-weight: 600;
+        }
+        .ban-item .duration .remaining.active {
+            color: #00ffaa;
+        }
+        .ban-item .duration .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #ff444422;
+            color: #ff4444;
+        }
+        .ban-item .duration .badge.expired {
+            background: #00ffaa22;
+            color: #00ffaa;
+        }
+        .no-data {
+            color: #666;
+            text-align: center;
+            padding: 40px 0;
+            font-size: 14px;
+        }
+        .loading {
+            color: #888;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+        .last-update {
+            color: #555;
+            font-size: 11px;
+            text-align: right;
+            margin-top: 12px;
+        }
+        .env-status {
+            text-align: center;
+            font-size: 11px;
+            color: #555;
+            margin-top: 8px;
+        }
+        .security-badge {
+            text-align: center;
+            font-size: 10px;
+            color: #444;
+            margin-top: 12px;
+            border-top: 1px solid #ff444415;
+            padding-top: 12px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .search-box input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #ff444433;
+            background: #0d0d0d;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            transition: 0.3s;
+        }
+        .search-box input:focus {
+            border-color: #ff4444;
+            box-shadow: 0 0 20px rgba(255,68,68,0.08);
+        }
+        .search-box input::placeholder {
+            color: #555;
+        }
+        .search-box .btn-search {
+            background: #ff444422;
+            color: #ff4444;
+            border: 1px solid #ff444455;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .search-box .btn-search:hover {
+            background: #ff444466;
+            color: #fff;
+        }
+        .search-box .btn-clear {
+            background: #444;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .search-box .btn-clear:hover {
+            background: #555;
+        }
+
+        /* SENSOR GMAIL */
+        .sensor-dot {
+            color: #ff4444;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px 16px;
+            }
+            .card .stats {
+                gap: 10px;
+            }
+            .card .stats .stat-item {
+                padding: 8px 14px;
+            }
+            .card .stats .stat-item .num {
+                font-size: 20px;
+            }
+            .ban-item {
+                padding: 14px 16px;
+            }
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .header-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .search-box {
+                flex-direction: column;
+            }
+            .search-box input {
+                width: 100%;
+            }
+            .search-box .btn-search,
+            .search-box .btn-clear {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== HEADER ===== -->
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;">
+                <div>
+                    <h1>🚫 Cek akun yang telah di Banned</h1>
+                    <div class="sub">Daftar Gmail yang diblokir beserta durasi banned</div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-refresh" onclick="loadBannedList()">🔄 Refresh</button>
+                    <a href="https://wa.me/6289518103883" target="_blank" class="btn-appeal">📱 Ajukan Banding</a>
+                    <button class="btn btn-back" onclick="location.href='/'">🏠 Home</button>
+                </div>
+            </div>
+            <div class="stats" id="statsContainer">
+                <div class="stat-item">
+                    <div class="num" id="totalBanned">0</div>
+                    <div class="label">Total Diblokir</div>
+                </div>
+                <div class="stat-item">
+                    <div class="num" id="activeBans" style="color:#ffaa00;">0</div>
+                    <div class="label">Aktif</div>
+                </div>
+                <div class="stat-item">
+                    <div class="num" id="expiredBans" style="color:#00ffaa;">0</div>
+                    <div class="label">Kadaluarsa</div>
+                </div>
+            </div>
+            <div class="env-status" id="envStatus">🔌 Mengambil data banned...</div>
+        </div>
+
+        <!-- ===== SEARCH ===== -->
+        <div class="card">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Cari Gmail atau alasan banned..." oninput="filterList()">
+                <button class="btn-search" onclick="filterList()">🔍 Cari</button>
+                <button class="btn-clear" onclick="clearSearch()">✕ Clear</button>
+            </div>
+        </div>
+
+        <!-- ===== LIST BAN ===== -->
+        <div id="banContainer">
+            <div class="loading">⏳ Memuat daftar banned...</div>
+        </div>
+
+        <div class="text-muted" style="text-align:center;margin-top:20px;color:#666;font-size:12px;">
+            © Shine Shop · Cek Banned System
+        </div>
+        <div class="security-badge">🔒 Shine Shop - 2026 </div>
+    </div>
+
+    <script>
+        // ===================== KONFIGURASI =====================
+        const BAN_URL = '/sosmed-2/payment/gmail.json';
+        const WHATSAPP_NUMBER = '6289518103883';
+        let allBannedData = [];
+        let filteredData = [];
+
+        // ===================== SENSOR GMAIL =====================
+        function maskGmail(gmail) {
+            if (!gmail) return '-';
+            
+            // Pisahkan username dan domain
+            const parts = gmail.split('@');
+            if (parts.length !== 2) return gmail;
+            
+            const username = parts[0];
+            const domain = parts[1];
+            
+            // Sensor username: tampilkan 2-3 huruf pertama, sisanya bintang
+            let maskedUsername = '';
+            if (username.length <= 3) {
+                // Jika username pendek, tampilkan semua
+                maskedUsername = username;
+            } else {
+                // Tampilkan 2-3 huruf pertama, sisanya bintang
+                const showCount = Math.min(3, Math.max(2, Math.floor(username.length / 3)));
+                maskedUsername = username.substring(0, showCount) + '***' + username.substring(username.length - 1);
+            }
+            
+            // Jika username terlalu pendek, tampilkan semua
+            if (username.length <= 4) {
+                maskedUsername = username;
+            }
+            
+            return maskedUsername + '@' + domain;
+        }
+
+        // ===================== HITUNG DURASI =====================
+        function calculateDuration(untilDate) {
+            const now = new Date();
+            const until = new Date(untilDate);
+            
+            // Konversi ke GMT+7
+            const nowGMT7 = new Date(now.getTime() + (7 * 60 * 60 * 1000));
+            const untilGMT7 = new Date(until.getTime() + (7 * 60 * 60 * 1000));
+            
+            const diffMs = untilGMT7 - nowGMT7;
+            
+            if (diffMs <= 0) {
+                return { expired: true, remaining: 'Kadaluarsa', days: 0, hours: 0, minutes: 0 };
+            }
+            
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            
+            let remaining = '';
+            if (days > 0) remaining += days + ' hari ';
+            if (hours > 0) remaining += hours + ' jam ';
+            if (minutes > 0) remaining += minutes + ' menit';
+            if (!remaining) remaining = 'Kurang dari 1 menit';
+            
+            return { expired: false, remaining: remaining, days: days, hours: hours, minutes: minutes };
+        }
+
+        // ===================== FORMAT TANGGAL =====================
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+            try {
+                const date = new Date(dateString);
+                const options = {
+                    day: '2-digit',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    timeZone: 'Asia/Jakarta'
+                };
+                return date.toLocaleString('id-ID', options) + ' WIB';
+            } catch {
+                return dateString;
+            }
+        }
+
+        // ===================== LOAD BANNED LIST =====================
+        async function loadBannedList() {
+            const container = document.getElementById('banContainer');
+            const statusEl = document.getElementById('envStatus');
+            container.innerHTML = '<div class="loading">⏳ Memuat daftar banned...</div>';
+
+            try {
+                statusEl.textContent = '⏳ Mengambil data dari server...';
+                statusEl.style.color = '#888';
+
+                const res = await fetch(BAN_URL + '?t=' + Date.now());
+                
+                if (!res.ok) {
+                    throw new Error('Gagal mengambil data: ' + res.status);
+                }
+
+                const data = await res.json();
+                
+                if (!Array.isArray(data)) {
+                    throw new Error('Format data tidak valid');
+                }
+
+                allBannedData = data;
+                filteredData = data;
+                
+                // Update statistik
+                updateStats(data);
+                
+                // Render list
+                renderList(data);
+                
+                statusEl.textContent = `✅ ${data.length} akun terban, diperbarui: ${new Date().toLocaleString('id-ID')}`;
+                statusEl.style.color = '#00ffaa';
+
+                console.log('🚫 Data banned dimuat:', data.length, 'akun');
+
+            } catch (err) {
+                console.error('Error load banned list:', err);
+                statusEl.textContent = '❌ ' + err.message;
+                statusEl.style.color = '#ff6666';
+                container.innerHTML = `
+                    <div class="card" style="border-color:#ff444455;text-align:center;padding:20px;">
+                        <div style="color:#ff6666;font-size:14px;">
+                            ❌ Gagal memuat data: ${err.message}
+                            <br><br>
+                            <button class="btn btn-refresh" onclick="loadBannedList()" style="margin-top:10px;">
+                                🔄 Coba Lagi
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // ===================== UPDATE STATS =====================
+        function updateStats(data) {
+            const now = new Date();
+            let active = 0;
+            let expired = 0;
+            
+            data.forEach(item => {
+                if (item["Dibanned sampai"]) {
+                    const until = new Date(item["Dibanned sampai"]);
+                    if (now > until) {
+                        expired++;
+                    } else {
+                        active++;
+                    }
+                } else {
+                    active++;
+                }
+            });
+            
+            document.getElementById('totalBanned').textContent = data.length;
+            document.getElementById('activeBans').textContent = active;
+            document.getElementById('expiredBans').textContent = expired;
+        }
+
+        // ===================== RENDER LIST =====================
+        function renderList(data) {
+            const container = document.getElementById('banContainer');
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="card" style="border-color:#00ffaa33;text-align:center;padding:20px;">
+                        <div style="color:#00ffaa;font-size:14px;">
+                            ✅ Tidak ada akun yang diblokir saat ini.
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            data.forEach((item, index) => {
+                const gmail = item.Gmail || '-';
+                const reason = item.Alasan || 'Tidak ada alasan';
+                const untilDate = item["Dibanned sampai"] || null;
+                const maskedGmail = maskGmail(gmail);
+                
+                let durationHtml = '';
+                let isExpired = false;
+                
+                if (untilDate) {
+                    const duration = calculateDuration(untilDate);
+                    isExpired = duration.expired;
+                    
+                    let remainingClass = 'remaining';
+                    if (isExpired) {
+                        remainingClass += ' expired';
+                    } else {
+                        remainingClass += ' active';
+                    }
+                    
+                    durationHtml = `
+                        <div class="duration">
+                            <span>📅 <span class="until">Sampai: ${formatDate(untilDate)}</span></span>
+                            <span>⏳ Sisa: <span class="${remainingClass}">${duration.remaining}</span></span>
+                            <span class="badge ${isExpired ? 'expired' : ''}">${isExpired ? '✅ Kadaluarsa' : '🔴 Aktif'}</span>
+                        </div>
+                    `;
+                } else {
+                    durationHtml = `
+                        <div class="duration">
+                            <span class="badge">🔴 Permanen</span>
+                        </div>
+                    `;
+                }
+
+                html += `
+                    <div class="ban-item" data-gmail="${gmail.toLowerCase()}" data-reason="${reason.toLowerCase()}">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+                            <span class="gmail">📧 ${maskedGmail}</span>
+                            <span style="color:#666;font-size:11px;">#${index + 1}</span>
+                        </div>
+                        <div class="reason">📝 ${reason}</div>
+                        ${durationHtml}
+                        <div style="margin-top:8px;">
+                            <a href="https://wa.me/${WHATSAPP_NUMBER}?text=Halo%20Admin%2C%20saya%20ingin%20mengajukan%20banding%20atas%20ban%20akun%20saya.%20Gmail%3A%20${encodeURIComponent(gmail)}" 
+                               target="_blank" 
+                               style="color:#ffaa00;text-decoration:underline;font-size:12px;">
+                               📱 Ajukan Banding
+                            </a>
+                            ${!isExpired && untilDate ? `<span style="color:#666;font-size:11px;margin-left:12px;">🔒 Masih aktif</span>` : ''}
+                            ${isExpired && untilDate ? `<span style="color:#00ffaa;font-size:11px;margin-left:12px;">✅ Sudah kadaluarsa</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ===================== FILTER LIST =====================
+        function filterList() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            
+            if (!query) {
+                filteredData = allBannedData;
+            } else {
+                filteredData = allBannedData.filter(item => {
+                    const gmail = (item.Gmail || '').toLowerCase();
+                    const reason = (item.Alasan || '').toLowerCase();
+                    return gmail.includes(query) || reason.includes(query);
+                });
+            }
+            
+            renderList(filteredData);
+            updateStats(filteredData);
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filteredData = allBannedData;
+            renderList(filteredData);
+            updateStats(filteredData);
+        }
+
+        // ===================== AUTO REFRESH =====================
+        let refreshInterval = null;
+
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(loadBannedList, 60000); // Refresh setiap 60 detik
+        }
+
+        // ===================== INIT =====================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBannedList();
+            startAutoRefresh();
+
+            console.log('🚫 Cek Banned Gmail siap!');
+            console.log('📡 Sumber data: ' + BAN_URL);
+            console.log('🔒 Gmail disensor otomatis');
+        });
+
+        // Stop refresh saat halaman di-unload
+        window.addEventListener('beforeunload', function() {
+            if (refreshInterval) clearInterval(refreshInterval);
+        });
+
+        // ===================== ANTI INSPECT =====================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(e.key)) ||
+                (e.ctrlKey && e.key === 'u')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
