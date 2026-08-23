@@ -1,0 +1,1246 @@
+<!DOCTYPE html>    
+<html lang="id">    
+<head>    
+<meta charset="UTF-8">    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+<title>Shine Shop - SMM</title>    
+<style>  
+	/* ===============================    
+   ROOT THEME    
+=================================*/    
+:root {    
+  --bg: #090d16;    
+  --glass: rgba(255, 255, 255, 0.04);    
+  --glass-strong: rgba(255, 255, 255, 0.09);    
+  --border: rgba(255, 255, 255, 0.07);    
+  --accent1: #8b5cf6;    
+  --accent2: #06b6d4;    
+  --accent-gradient: linear-gradient(135deg, #8b5cf6, #06b6d4);  
+  --text: #f1f5f9;    
+  --text-muted: #94a3b8;  
+  --danger: #f87171;  
+  --discount-bg: #f59e0b;  
+  --discount-text: #090d16;  
+  --radius: 16px;  
+  --radius-sm: 10px;  
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);  
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  
+}    
+/* ===============================
+BASE
+=================================*/
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+transition: var(--transition);
+}
+
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+margin: 0;
+color: var(--text);
+background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #0b1524);
+background-size: 400% 400%;
+animation: gradientBG 20s ease infinite;
+min-height: 100vh;
+line-height: 1.6;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes gradientBG {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+
+/* ===============================
+SCROLLBAR CUSTOM
+=================================*/
+::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+::-webkit-scrollbar-track {
+background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+background: var(--accent1);
+border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: var(--accent2);
+}
+
+/* ===============================
+HEADER
+=================================*/
+.header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 14px 24px;
+backdrop-filter: blur(20px) saturate(1.2);
+-webkit-backdrop-filter: blur(20px) saturate(1.2);
+background: rgba(15, 23, 42, 0.6);
+border-bottom: 1px solid var(--border);
+position: sticky;
+top: 0;
+z-index: 80;
+transition: background 0.3s ease;
+}
+
+.header.scrolled {
+background: rgba(9, 13, 22, 0.85);
+}
+
+.brand {
+display: flex;
+align-items: center;
+gap: 14px;
+}
+
+.logo {
+width: 44px;
+height: 44px;
+border-radius: var(--radius-sm);
+overflow: hidden;
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid var(--border);
+box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+transition: box-shadow 0.4s ease;
+}
+
+.logo:hover {
+box-shadow: 0 0 35px rgba(139, 92, 246, 0.4);
+}
+
+.logo img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+h1 {
+font-size: 18px;
+margin: 0;
+font-weight: 600;
+letter-spacing: 0.3px;
+background: var(--accent-gradient);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+/* ===============================
+HAMBURGER
+=================================*/
+.hamburger-btn {
+margin-left: auto;
+background: var(--glass);
+border: 1px solid var(--border);
+padding: 8px 12px;
+border-radius: var(--radius-sm);
+cursor: pointer;
+display: flex;
+flex-direction: column;
+gap: 4.5px;
+transition: all 0.3s ease;
+}
+
+.hamburger-btn:hover {
+background: var(--glass-strong);
+border-color: rgba(255, 255, 255, 0.2);
+transform: scale(1.02);
+}
+
+.hamburger-icon span {
+display: block;
+height: 2px;
+width: 22px;
+background: white;
+border-radius: 10px;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger-btn.active .hamburger-icon span:nth-child(1) {
+transform: rotate(45deg) translateY(5px) translateX(2px);
+}
+.hamburger-btn.active .hamburger-icon span:nth-child(2) {
+opacity: 0;
+transform: scale(0.8);
+}
+.hamburger-btn.active .hamburger-icon span:nth-child(3) {
+transform: rotate(-45deg) translateY(-5px) translateX(2px);
+}
+
+/* ===============================
+OFFCANVAS
+=================================*/
+.offcanvas {
+position: fixed;
+top: 0;
+left: -300px;
+width: 280px;
+height: 100%;
+background: rgba(9, 13, 22, 0.97);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+padding: 30px 20px;
+z-index: 100;
+border-right: 1px solid var(--border);
+box-shadow: 12px 0 48px rgba(0, 0, 0, 0.6);
+transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+overflow-y: auto;
+}
+
+.offcanvas.open {
+left: 0;
+}
+
+.offcanvas-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 24px;
+padding-bottom: 16px;
+border-bottom: 1px solid var(--border);
+}
+
+.offcanvas-header .brand-text {
+font-size: 18px;
+font-weight: 600;
+background: var(--accent-gradient);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+.close-offcanvas {
+background: var(--glass);
+border: 1px solid var(--border);
+color: var(--text-muted);
+padding: 6px 14px;
+border-radius: var(--radius-sm);
+cursor: pointer;
+font-size: 14px;
+transition: all 0.3s ease;
+}
+
+.close-offcanvas:hover {
+background: var(--glass-strong);
+color: white;
+border-color: var(--danger);
+}
+
+.menu-list {
+list-style: none;
+padding: 0;
+margin-top: 8px;
+}
+
+.menu-list li {
+margin-bottom: 8px;
+}
+
+.menu-list a {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 14px 16px;
+background: var(--glass);
+border-radius: var(--radius-sm);
+color: var(--text-muted);
+text-decoration: none;
+border: 1px solid var(--border);
+font-weight: 500;
+font-size: 14px;
+transition: all 0.3s ease;
+}
+
+.menu-list a:hover {
+background: rgba(139, 92, 246, 0.12);
+color: white;
+border-color: var(--accent1);
+transform: translateX(8px);
+box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+.menu-list a .icon {
+font-size: 18px;
+}
+
+/* ===============================
+OVERLAY
+=================================*/
+.overlay {
+position: fixed;
+inset: 0;
+background: rgba(0, 0, 0, 0.6);
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+opacity: 0;
+pointer-events: none;
+z-index: 90;
+transition: opacity 0.4s ease;
+}
+.overlay.show {
+opacity: 1;
+pointer-events: auto;
+}
+
+/* ===============================
+CONTAINER
+=================================*/
+.container {
+max-width: 720px;
+margin: 48px auto;
+padding: 40px 44px;
+border-radius: var(--radius);
+background: rgba(30, 41, 59, 0.35);
+backdrop-filter: blur(24px) saturate(1.1);
+-webkit-backdrop-filter: blur(24px) saturate(1.1);
+border: 1px solid var(--border);
+box-shadow: var(--shadow);
+animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* ===============================
+HEADING
+=================================*/
+h2 {
+text-align: center;
+margin-top: 0;
+margin-bottom: 32px;
+font-weight: 700;
+font-size: 28px;
+letter-spacing: -0.5px;
+background: var(--accent-gradient);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+}
+
+/* ===============================
+FORM
+=================================*/
+label {
+display: block;
+margin-top: 22px;
+font-size: 12px;
+font-weight: 600;
+color: var(--text-muted);
+letter-spacing: 0.8px;
+text-transform: uppercase;
+}
+
+label .required {
+color: var(--danger);
+margin-left: 4px;
+}
+
+input, select {
+width: 100%;
+padding: 14px 18px;
+margin-top: 6px;
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+background: rgba(15, 23, 42, 0.6);
+color: white;
+font-size: 14px;
+transition: all 0.3s ease;
+}
+
+input:hover, select:hover {
+border-color: rgba(255, 255, 255, 0.15);
+}
+
+input:focus, select:focus {
+outline: none;
+border-color: var(--accent2);
+box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15), 0 0 30px rgba(6, 182, 212, 0.08);
+background: rgba(15, 23, 42, 0.85);
+}
+
+.desc, .aver {
+margin-top: 12px;
+padding: 16px 20px;
+background: var(--glass);
+border-radius: var(--radius-sm);
+border: 1px dashed rgba(255, 255, 255, 0.08);
+font-size: 13px;
+color: var(--text-muted);
+line-height: 1.6;
+}
+
+.discount-badge {
+display: inline-block;
+background: var(--discount-bg);
+color: var(--discount-text);
+padding: 2px 14px;
+border-radius: 20px;
+font-weight: 700;
+font-size: 11px;
+margin-left: 8px;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+0%, 100% { transform: scale(1); }
+50% { transform: scale(1.04); }
+}
+
+.price-strike {
+text-decoration: line-through;
+color: var(--text-muted);
+font-size: 13px;
+margin-right: 8px;
+}
+
+.price-discount {
+color: var(--discount-bg);
+font-weight: 700;
+font-size: 16px;
+}
+
+/* ===============================
+SYARAT & KETENTUAN
+=================================*/
+.terms-container {
+margin-top: 24px;
+padding: 16px 20px;
+background: var(--glass);
+border-radius: var(--radius-sm);
+border: 1px solid var(--border);
+transition: all 0.3s ease;
+}
+
+.terms-container:hover {
+border-color: rgba(255, 255, 255, 0.12);
+}
+
+.terms-container .terms-header {
+display: flex;
+align-items: center;
+gap: 12px;
+cursor: pointer;
+user-select: none;
+}
+
+.terms-container .terms-header input[type="checkbox"] {
+width: 20px;
+height: 20px;
+accent-color: var(--accent2);
+cursor: pointer;
+flex-shrink: 0;
+margin: 0;
+}
+
+.terms-container .terms-header label {
+margin: 0;
+font-size: 13px;
+font-weight: 500;
+color: var(--text);
+text-transform: none;
+letter-spacing: 0;
+cursor: pointer;
+}
+
+.terms-container .terms-header label .terms-link {
+color: var(--accent2);
+text-decoration: underline;
+cursor: pointer;
+transition: color 0.3s ease;
+font-weight: 600;
+}
+
+.terms-container .terms-header label .terms-link:hover {
+color: var(--accent1);
+}
+
+.terms-container .terms-content {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.terms-container .terms-content.open {
+max-height: 400px;
+}
+
+.terms-container .terms-content-inner {
+margin-top: 12px;
+padding: 14px 16px;
+background: rgba(15, 23, 42, 0.5);
+border-radius: var(--radius-sm);
+font-size: 13px;
+color: var(--text-muted);
+line-height: 1.8;
+max-height: 300px;
+overflow-y: auto;
+border: 1px solid var(--border);
+}
+
+.terms-container .terms-content-inner::-webkit-scrollbar {
+width: 4px;
+}
+
+.terms-container .terms-content-inner::-webkit-scrollbar-thumb {
+background: var(--accent1);
+border-radius: 10px;
+}
+
+.terms-container .terms-toggle {
+background: none;
+border: none;
+color: var(--text-muted);
+font-size: 12px;
+cursor: pointer;
+padding: 4px 0;
+margin-top: 8px;
+text-decoration: underline;
+transition: color 0.3s ease;
+width: auto;
+box-shadow: none;
+}
+
+.terms-container .terms-toggle:hover {
+color: white;
+transform: none;
+box-shadow: none;
+}
+
+.terms-container .terms-toggle::after {
+display: none;
+}
+
+.terms-error {
+color: var(--danger);
+font-size: 12px;
+margin-top: 8px;
+display: none;
+}
+
+.terms-error.show {
+display: block;
+}
+
+/* ===============================
+BUTTON
+=================================*/
+button {
+width: 100%;
+padding: 16px 24px;
+margin-top: 32px;
+border-radius: var(--radius-sm);
+border: none;
+font-weight: 600;
+font-size: 15px;
+cursor: pointer;
+background: var(--accent-gradient);
+color: white;
+box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+transition: all 0.3s ease;
+position: relative;
+overflow: hidden;
+}
+
+button::after {
+content: '';
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+opacity: 0;
+transition: opacity 0.4s ease;
+}
+
+button:hover::after {
+opacity: 1;
+}
+
+button:hover {
+transform: translateY(-3px);
+box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
+}
+
+button:active {
+transform: translateY(0);
+box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+}
+
+button:disabled {
+opacity: 0.6;
+cursor: not-allowed;
+transform: none !important;
+}
+
+/* ===============================
+PARAGRAPH
+=================================*/
+p {
+color: var(--danger);
+font-size: 13px;
+line-height: 1.7;
+margin-top: 12px;
+margin-bottom: 8px;
+padding: 12px 16px;
+background: rgba(248, 113, 113, 0.06);
+border-radius: var(--radius-sm);
+border-left: 3px solid var(--danger);
+}
+
+p.success {
+color: #34d399;
+border-left-color: #34d399;
+background: rgba(52, 211, 153, 0.06);
+}
+
+p.info {
+color: var(--accent2);
+border-left-color: var(--accent2);
+background: rgba(6, 182, 212, 0.06);
+}
+
+/* ===============================
+RESPONSIVE
+=================================*/
+@media (max-width: 768px) {
+.container {
+padding: 24px 20px;
+margin: 20px 16px;
+border-radius: var(--radius-sm);
+}
+
+.header {
+padding: 12px 16px;
+}
+
+h1 {
+font-size: 16px;
+}
+
+h2 {
+font-size: 22px;
+}
+
+.offcanvas {
+width: 260px;
+left: -280px;
+}
+
+.logo {
+width: 38px;
+height: 38px;
+}
+
+.hamburger-btn {
+padding: 6px 10px;
+}
+
+.hamburger-icon span {
+width: 18px;
+}
+
+input, select {
+padding: 12px 14px;
+font-size: 13px;
+}
+
+button {
+font-size: 14px;
+padding: 14px 20px;
+}
+
+.terms-container {
+padding: 12px 14px;
+}
+}
+
+@media (max-width: 400px) {
+.container {
+padding: 16px;
+}
+
+.brand {
+gap: 10px;
+}
+
+.desc, .aver {
+padding: 12px 14px;
+font-size: 12px;
+}
+}
+
+/* ===============================
+UTILITY
+=================================*/
+.text-center { text-align: center; }
+.text-muted { color: var(--text-muted); }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+
+.fade-in {
+animation: fadeUp 0.5s ease both;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
+/* ===============================
+SKELETON LOADING (opsional)
+=================================*/
+.skeleton {
+background: linear-gradient(90deg, var(--glass) 25%, var(--glass-strong) 50%, var(--glass) 75%);
+background-size: 200% 100%;
+animation: shimmer 1.6s ease-in-out infinite;
+border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+0% { background-position: -200% 0; }
+100% { background-position: 200% 0; }
+}
+
+</style>   </head>    
+<body>    
+<audio id="bgm" autoplay loop muted>    
+  <source src="https://raw.githubusercontent.com/IkyyExecutive-v2/IkyySukaNgewe/main/uploads/1773720595309_2430_1773720593858_file_3108.mp3" type="audio/mpeg">    
+</audio>    
+<!-- HEADER -->    
+<header class="header">    
+  <div class="brand">    
+    <div class="logo">    
+      <img src="/home/logo.png" alt="Shine Shop Logo">    
+    </div>    
+    <h1>Shine Shop</h1>    
+  </div>    
+  <button class="hamburger-btn" id="menuToggle">    
+    <div class="hamburger-icon">    
+      <span></span>    
+      <span></span>    
+      <span></span>    
+    </div>    
+  </button>    
+</header>    
+<div id="menuOverlay" class="overlay"></div>    
+<nav id="siteMenu" class="offcanvas">    
+  <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">    
+    <strong style="font-size:18px">Menu Utama</strong>    
+    <button class="close" id="menuClose" style="font-size:22px;background:none;border:0;color:white;cursor:pointer">✕</button>    
+  </header>    
+  <ul class="menu-list">    
+	<li><a href='https://whatsapp.com/channel/0029Vb8pYHd0G0XjnloL680y'> Channel WhatsApp</a></li>    
+  </ul>    
+</nav>    
+<script>    
+const toggleBtn=document.getElementById("menuToggle");    
+const closeBtn=document.getElementById("menuClose");    
+const offcanvas=document.getElementById("siteMenu");    
+const overlay=document.getElementById("menuOverlay");    
+    
+function openMenu(){    
+  offcanvas.classList.add("open");    
+  overlay.classList.add("show");    
+  toggleBtn.classList.add("active");    
+}    
+function closeMenu(){    
+  offcanvas.classList.remove("open");    
+  overlay.classList.remove("show");    
+  toggleBtn.classList.remove("active");    
+}    
+    
+toggleBtn.onclick=()=> offcanvas.classList.contains("open")?closeMenu():openMenu();    
+closeBtn.onclick=closeMenu;    
+overlay.onclick=closeMenu;    
+</script>    
+<!-- FORM -->    
+<div class="container">    
+<h2>Suntik Sosmed 2 - Shine Shop</h2>    
+<label>Cari Layanan:</label>
+<input type="text" id="search" placeholder="Contoh: Instagram / 14444" onkeyup="searchLayanan()">
+
+<label for="kategori">Kategori:</label>
+<select id="kategori" onchange="loadLayanan()">
+  <option value="">-- Pilih Kategori --</option>    
+</select>    
+
+<label for="layanan">Layanan:</label>
+<select id="layanan" onchange="showInfo()">
+  <option value="">-- Pilih Layanan --</option>    
+</select>    
+
+<div class="desc" id="infoLayanan"></div>    
+<label>Waktu rata rata selesai:</label>  
+<div class="aver" id="average"></div>    
+
+<label>Jumlah Pesanan:</label>
+<input type="number" id="jumlah" min="1" oninput="hitungTotal()">
+
+<label>Target / Link:</label>
+<input type="text" id="target" placeholder="Masukkan username atau link">
+
+<label>Total Harga (Rp):</label>
+<input type="text" id="total" readonly>
+
+<p>Peringatan: Waktu rata rata selesai tidak sepenuhnya akurat, penghitungan waktu rata rata bedasarkan 10 transaksi terakhir <br> bila ada kendala harap hubungi customer service  
+<br>   
+WhatsApp: +6289518103883 <br>  
+Instagram: onivla_    
+</p>  
+
+<!-- ===== SYARAT & KETENTUAN ===== -->  
+<div class="terms-container" id="termsContainer">  
+  <div class="terms-header">  
+    <input type="checkbox" id="termsCheckbox">  
+    <label for="termsCheckbox">  
+      Saya menyetujui   
+      <span class="terms-link" onclick="openRules(event)">Syarat & Ketentuan</span>   
+      yang berlaku  
+    </label>  
+  </div>  
+  <div class="terms-content" id="termsContent">  
+    <div class="terms-content-inner" id="termsContentInner">  
+      <div style="text-align:center;color:#666;padding:20px;">  
+        ⏳ Memuat syarat & ketentuan...  
+      </div>  
+    </div>  
+    <button class="terms-toggle" id="termsToggleBtn" onclick="toggleTerms(event)">📖 Sembunyikan</button>  
+  </div>  
+  <div class="terms-error" id="termsError">⚠️ Anda harus menyetujui syarat & ketentuan terlebih dahulu!</div>  
+</div>  
+
+<button onclick="lanjutPembayaran()">Lanjut ke Pembayaran</button>
+
+</div>    
+
+<script>    
+const audio = document.getElementById("bgm");    
+  
+// setelah audio mulai, unmute otomatis    
+audio.addEventListener("canplay", () => {    
+  audio.muted = false;    
+  audio.volume = 1.0;    
+});    
+  
+// fallback jika browser nahan autoplay    
+setTimeout(() => {    
+  audio.muted = false;    
+  audio.play().catch(()=>{});    
+}, 1000);    
+
+// ===================== SYARAT & KETENTUAN =====================  
+const termsCheckbox = document.getElementById('termsCheckbox');  
+const termsError = document.getElementById('termsError');  
+const termsContent = document.getElementById('termsContent');  
+const termsContentInner = document.getElementById('termsContentInner');  
+const termsToggleBtn = document.getElementById('termsToggleBtn');  
+  
+let termsData = '';  
+let isTermsLoaded = false;  
+  
+function openRules(e) {  
+  if (e) e.preventDefault();  
+  e.stopPropagation();  
+  window.open('/rules/', '_blank');  
+  return false;  
+}  
+
+async function loadTerms() {  
+  try {  
+    const res = await fetch('/rules/?t=' + Date.now());  
+    if (!res.ok) {  
+      throw new Error('Gagal mengambil syarat & ketentuan');  
+    }  
+    const html = await res.text();  
+    termsData = html || 'Syarat & ketentuan belum tersedia.';  
+    termsContentInner.innerHTML = termsData;  
+    isTermsLoaded = true;  
+    console.log('✅ Syarat & ketentuan berhasil dimuat');  
+  } catch (err) {  
+    console.error('Error load terms:', err);  
+    termsContentInner.innerHTML = `  
+      <div style="color:#ff6666;">  
+        ❌ Gagal memuat syarat & ketentuan.<br>  
+        <span style="font-size:12px;color:#888;">${err.message}</span>  
+        <br><br>  
+        <button onclick="loadTerms()" style="background:#444;color:white;border:none;padding:8px 20px;border-radius:8px;cursor:pointer;width:auto;margin-top:8px;box-shadow:none;">  
+          🔄 Coba Lagi  
+        </button>  
+        <br><br>  
+        <a href="/rules/" target="_blank" style="color:var(--accent2);text-decoration:underline;">  
+          📖 Buka di halaman terpisah  
+        </a>  
+      </div>  
+    `;  
+  }  
+}  
+
+function toggleTerms(e) {  
+  if (e) e.preventDefault();  
+  const isOpen = termsContent.classList.contains('open');  
+  if (!isOpen) {  
+    if (!isTermsLoaded) {  
+      loadTerms();  
+    }  
+    termsContent.classList.add('open');  
+    termsToggleBtn.textContent = '📖 Sembunyikan';  
+  } else {  
+    termsContent.classList.remove('open');  
+    termsToggleBtn.textContent = '📖 Baca Syarat & Ketentuan';  
+  }  
+}  
+
+function validateTerms() {  
+  if (!termsCheckbox.checked) {  
+    termsError.classList.add('show');  
+    termsCheckbox.style.borderColor = 'var(--danger)';  
+    setTimeout(() => {  
+      termsError.classList.remove('show');  
+    }, 3000);  
+    return false;  
+  }  
+  termsError.classList.remove('show');  
+  termsCheckbox.style.borderColor = '';  
+  return true;  
+}  
+
+termsCheckbox.addEventListener('change', function() {  
+  if (this.checked) {  
+    termsError.classList.remove('show');  
+    termsCheckbox.style.borderColor = '';  
+    if (!termsContent.classList.contains('open') && !isTermsLoaded) {  
+      loadTerms();  
+      termsContent.classList.add('open');  
+      termsToggleBtn.textContent = '📖 Sembunyikan';  
+    }  
+  }  
+});  
+
+document.addEventListener('click', function(e) {  
+  if (e.target.tagName === 'A' && e.target.href) {  
+    // Biarkan link berjalan normal  
+  }  
+});  
+
+// ===================== DATA LAYANAN (AUTO-REFRESH TANPA RESET) =====================  
+let layananData = {};  
+let selectedService = null;  
+
+// Simpan state form sebelum refresh
+let savedFormState = {
+  kategori: '',
+  layanan: '',
+  jumlah: '',
+  target: '',
+  total: '',
+  search: ''
+};
+
+// Fungsi untuk menyimpan state form
+function saveFormState() {
+  savedFormState.kategori = document.getElementById('kategori').value;
+  savedFormState.layanan = document.getElementById('layanan').value;
+  savedFormState.jumlah = document.getElementById('jumlah').value;
+  savedFormState.target = document.getElementById('target').value;
+  savedFormState.total = document.getElementById('total').value;
+  savedFormState.search = document.getElementById('search').value;
+}
+
+// Fungsi untuk restore state form
+function restoreFormState() {
+  if (savedFormState.kategori) {
+    document.getElementById('kategori').value = savedFormState.kategori;
+  }
+  if (savedFormState.layanan) {
+    document.getElementById('layanan').value = savedFormState.layanan;
+  }
+  if (savedFormState.jumlah) {
+    document.getElementById('jumlah').value = savedFormState.jumlah;
+  }
+  if (savedFormState.target) {
+    document.getElementById('target').value = savedFormState.target;
+  }
+  if (savedFormState.total) {
+    document.getElementById('total').value = savedFormState.total;
+  }
+  if (savedFormState.search) {
+    document.getElementById('search').value = savedFormState.search;
+  }
+}
+
+// Fungsi refresh data tanpa reset form
+async function refreshDataSilent() {
+  try {
+    const res = await fetch("/sosmed-2/list.json?ts=" + Date.now());
+    if (!res.ok) throw new Error("Gagal memuat list.json");
+    
+    const newData = await res.json();
+    
+    // Simpan state sebelum update
+    saveFormState();
+    
+    // Update data
+    layananData = newData;
+    
+    // Update kategori options tanpa mereset pilihan
+    const kategori = document.getElementById("kategori");
+    const currentKategori = kategori.value;
+    kategori.innerHTML = '<option value="">-- Pilih Kategori --</option>';
+    
+    for (const k in layananData) {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = k;
+      kategori.appendChild(opt);
+    }
+    
+    // Restore pilihan kategori jika masih valid
+    if (currentKategori && layananData[currentKategori]) {
+      kategori.value = currentKategori;
+    }
+    
+    // Restore form state (termasuk layanan yang dipilih)
+    restoreFormState();
+    
+    // Jika layanan masih ada di data baru, update info
+    if (selectedService) {
+      const kategoriVal = document.getElementById('kategori').value;
+      const layananVal = document.getElementById('layanan').value;
+      if (kategoriVal && layananVal && layananData[kategoriVal]) {
+        const found = layananData[kategoriVal].find(l => String(l.id) === String(layananVal));
+        if (found) {
+          selectedService = found;
+          showInfo();
+          hitungTotal();
+        }
+      }
+    }
+    
+    // Auto-refresh search jika ada
+    const searchVal = document.getElementById('search').value;
+    if (searchVal) {
+      searchLayanan();
+    }
+    
+    console.log('🔄 Data refreshed silently without resetting form');
+    
+  } catch (err) {
+    console.error('Error refresh data:', err);
+  }
+}
+
+// Fungsi load data awal (sama seperti refresh tapi tanpa interval)
+async function loadData() {
+  try {
+    const res = await fetch("/sosmed-2/list.json?ts=" + Date.now());
+    if (!res.ok) throw new Error("Gagal memuat list.json");
+    
+    layananData = await res.json();
+    
+    const kategori = document.getElementById("kategori");
+    kategori.innerHTML = '<option value="">-- Pilih Kategori --</option>';
+    
+    for (const k in layananData) {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = k;
+      kategori.appendChild(opt);
+    }
+    
+    console.log('✅ Data layanan dimuat');
+    
+  } catch (err) {
+    console.error(err);
+    alert("Data layanan gagal dimuat.");
+  }
+}
+
+// Jalankan saat halaman selesai dimuat
+window.addEventListener("load", function() {
+  loadData();
+  
+  // Auto refresh setiap 5 detik tanpa reset form
+  setInterval(refreshDataSilent, 5000);
+  
+  // Load syarat & ketentuan di background
+  loadTerms();
+});
+
+// Simpan state sebelum halaman di-refresh (manual)
+window.addEventListener('beforeunload', function() {
+  saveFormState();
+});
+
+function loadLayanan(){    
+  const kategori=document.getElementById("kategori").value;    
+  const layanan=document.getElementById("layanan");    
+  layanan.innerHTML="<option value=''>-- Pilih Layanan --</option>";    
+    
+  if(kategori && layananData[kategori]){    
+    layananData[kategori].forEach(l=>{    
+      let opt=document.createElement("option");    
+      opt.value=l.id;    
+      let label = l.name + " (ID: "+l.id+")";  
+      if(l.diskon && l.diskon < l.pricePerFollower) {  
+        label += " 🔥 DISKON";  
+      }  
+      opt.textContent = label;  
+      layanan.appendChild(opt);    
+    });    
+  }    
+  document.getElementById("infoLayanan").innerHTML="";    
+  selectedService=null;    
+  // Save state setelah load layanan
+  saveFormState();
+}    
+
+function showInfo(){    
+  const kategori=document.getElementById("kategori").value;    
+  const layananID=document.getElementById("layanan").value;    
+    
+  if (!kategori || !layananData[kategori]) return;
+  
+  selectedService=layananData[kategori].find(l=>String(l.id)===String(layananID));    
+  if(!selectedService) return;  
+    
+  let priceDisplay = '';  
+  let diskonDisplay = '';  
+    
+  if(selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower) {  
+    priceDisplay = `<span class="price-strike">Rp${selectedService.pricePerFollower}</span> <span class="price-discount">Rp${selectedService.diskon}</span> <span class="discount-badge">Diskon</span>`;  
+    diskonDisplay = `<br>Harga Diskon: Rp${selectedService.diskon}/unit (hemat Rp${selectedService.pricePerFollower - selectedService.diskon})`;  
+  } else {  
+    priceDisplay = `Rp${selectedService.pricePerFollower}/unit`;  
+  }  
+    
+  document.getElementById("average").innerHTML = `<b>${selectedService.average || "-"}</b>`;  
+    
+  document.getElementById("infoLayanan").innerHTML=    
+  `<b>${selectedService.name}</b><br>    
+   ID Produk: ${selectedService.id}<br>    
+   Harga: ${priceDisplay}<br>    
+   ${diskonDisplay} <br><br>  
+   Min: ${selectedService.min} | Max: ${selectedService.max}<br>    
+   ${selectedService.desc || ''}`;    
+  
+  // Save state setelah show info
+  saveFormState();
+}    
+
+function hitungTotal(){    
+  if(!selectedService) return;    
+  const jumlah=parseInt(document.getElementById("jumlah").value||"0");    
+  if(jumlah < selectedService.min || jumlah > selectedService.max){    
+    document.getElementById("total").value="Jumlah tidak valid!";    
+    return;    
+  }  
+    
+  const hargaAktif = (selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower)   
+    ? selectedService.diskon   
+    : selectedService.pricePerFollower;  
+    
+  document.getElementById("total").value=jumlah * hargaAktif;    
+  saveFormState();
+}    
+
+function generateTransactionID(){    
+  return `TRX${Date.now()}${Math.floor(Math.random()*1000)}`;    
+}    
+
+function searchLayanan(){    
+  const q=document.getElementById("search").value.toLowerCase();    
+  const kategori=document.getElementById("kategori");    
+  const layanan=document.getElementById("layanan");    
+    
+  for(let k in layananData){    
+    for(let l of layananData[k]){    
+      if(l.name.toLowerCase().includes(q) || String(l.id).includes(q)){    
+        kategori.value=k;    
+        loadLayanan();    
+        layanan.value=l.id;    
+        showInfo();    
+        return;    
+      }    
+    }    
+  }    
+  saveFormState();
+}    
+
+function lanjutPembayaran(){    
+  // ===== VALIDASI SYARAT & KETENTUAN =====  
+  if (!termsCheckbox.checked) {  
+    termsError.classList.add('show');  
+    termsCheckbox.style.borderColor = 'var(--danger)';  
+    document.getElementById('termsContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });  
+    setTimeout(() => {  
+      termsError.classList.remove('show');  
+    }, 3000);  
+    return;  
+  }  
+    
+  if(!selectedService){alert("Pilih layanan terlebih dahulu!");return;}    
+    
+  const jumlah=parseInt(document.getElementById("jumlah").value||"0");    
+  if(jumlah < selectedService.min || jumlah > selectedService.max){    
+    alert(`Jumlah harus antara ${selectedService.min} dan ${selectedService.max}`);    
+    return;    
+  }    
+    
+  const trxID=generateTransactionID();    
+  const kategori=document.getElementById("kategori").value;    
+  const target=document.getElementById("target").value;    
+    
+  const hargaAktif = (selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower)   
+    ? selectedService.diskon   
+    : selectedService.pricePerFollower;  
+    
+  const total=jumlah * hargaAktif;    
+    
+  window.location.href=`payment/?trx=${trxID}&kategori=${kategori}&layanan=${selectedService.name}&id=${selectedService.id}&jumlah=${jumlah}&total=${total}&target=${encodeURIComponent(target)}`;    
+}    
+     
+document.addEventListener("keydown", function(e){  
+  if(e.key === "F12") e.preventDefault();  
+  if(e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key)) e.preventDefault();  
+  if(e.ctrlKey && e.key === "u") e.preventDefault();  
+});  
+
+setInterval(() => {  
+  const threshold = 160;  
+  if (window.devtoolsOpen) return;  
+  const widthThreshold = window.outerWidth - window.innerWidth > threshold;  
+  if (widthThreshold && !/Android|iPhone|iPad/i.test(navigator.userAgent)) {  
+    document.body.innerHTML = "<h1 style='color:gold;text-align:center;margin-top:40vh;'>🚫 Developer Tools Terdeteksi</h1>";  
+  }  
+}, 2000);  
+    
+</script>    
+
+</body>    
+</html>
