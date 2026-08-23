@@ -1,0 +1,192 @@
+{
+	  "WhatsApp Channel Member": [
+		  {"id": "1805", 
+			  "name": "Whatsapp Channel Member FP 2 [ max 50K ] Global | 1k/days | No Refill (Rp 8.785/K)", 
+			  "pricePerFollower": 8.785, 
+			  "min": 10, 
+			  "max": 10000,
+			  "desc": "Masukkan link channel WhatsApp bukan grup WhatsApp <br> DILARANG KOMPLAIN <br> NO GARANSI <br> MEMBELI = SIAP MENGAMBIL RESIKO LAYANAN TIDAK MASUK ATAU SEMACAMNYA", 
+		  "average": "32 menit 27 detik"},
+		 {"id": "1285", "name": "Whatsapp Channel Member FP 2 [ max 50K ] Global | 1k/days | No Refill (Rp 21.785/K)", "pricePerFollower": 21.785, "min": 10, "max": 10000, "desc": "Masukkan link channel WhatsApp bukan grup WhatsApp <br> REKOMENDASI (LAYANAN TERCEPAT) <br> NO GARANSI", "average": "5 menit 50 detik" },
+		   {"id": "1287", 
+			   "name": "Whatsapp Channel Member FP 4 [ Max 10K ] Global | 2K/days | Refill 30 Days (Rp 18.600/K)",
+			   "pricePerFollower": 18.6,
+			   "min": 10,
+			   "max": 10000, 
+			   "desc": "Masukkan link channel WhatsApp bukan grup WhatsApp <br> GARANSI 30 Hari",
+			   "average": "8 menit 50 detik" }
+		 ],
+	"WhatsApp Poll Votes": [
+		{
+			"id": "1811", 
+			"name": "WhatsApp Poll Votes A [ Max 20K ] No Refill - Rp22.200/k",
+			"pricePerFollower": 22.2, 
+			"min": 10, 
+	        "max": 20000,
+			"desc": "Vote Dengan Opsi A <br> isi link target dengan link postingan voting pada saluran WhatsApp",
+			"average": "20 Menit"
+		},
+		{
+			"id": "1812", 
+			"name": "WhatsApp Poll Votes B [ Max 20K ] No Refill - Rp22.200/k",
+			"pricePerFollower": 22.2, 
+			"min": 10, 
+	        "max": 20000,
+			"desc": "Vote Dengan Opsi B <br> isi link target dengan link postingan voting pada saluran WhatsApp",
+			"average": "20 Menit"
+		},
+		{
+			"id": "1813", 
+			"name": "WhatsApp Poll Votes C [ Max 20K ] No Refill - Rp22.200/k",
+			"pricePerFollower": 22.2, 
+			"min": 10, 
+	        "max": 20000,
+			"desc": "Vote Dengan Opsi C <br> isi link target dengan link postingan voting pada saluran WhatsApp",
+			"average": "20 Menit"
+		},
+		{
+			"id": "1814", 
+			"name": "WhatsApp Poll Votes D [ Max 20K ] No Refill - Rp22.200/k",
+			"pricePerFollower": 22.2, 
+			"min": 10, 
+	        "max": 20000,
+			"desc": "Vote Dengan Opsi D <br> isi link target dengan link postingan voting pada saluran WhatsApp",
+			"average": "20 Menit"
+		},
+	    {
+			"id": "1815", 
+			"name": "WhatsApp Poll Votes E [ Max 20K ] No Refill - Rp22.200/k",
+			"pricePerFollower": 22.2, 
+			"min": 10, 
+	        "max": 20000,
+			"desc": "Vote Dengan Opsi E <br> isi link target dengan link postingan voting pada saluran WhatsApp",
+			"average": "20 Menit"
+		}	
+	],
+     "WhatsApp Group Member Indonesia": [ 
+		 {"id": "0007", "name": "Buzzer WhatsApp Group Member Indonesia | No Refill - Rp200.000/k", "pricePerFollower": 200, "min": 10, "max": 1000, "desc": "Masukkan Link Group WhatsApp <br> 100% pure dikerjakan oleh buzzer/pengguna asli"}
+	 ],
+	 "PAKET FYP Tiktok": [
+		 {"id": "0001", "name": "Paket FYP Tiktok 1 (Rp 20.000/paket)", "pricePerFollower": 20000,  "min": 1, "max": 100, "desc": "Masukkan link postingan tiktok. Anda akan mendapatkan 10K views 3K likes" },
+		 {"id": "0003", "name": "Paket FYP Tiktok 2 (Rp 40.000/paket)", "pricePerFollower": 40000, "min": 1, "max": 100, "desc": "Masukkan link postingan tiktok. Anda akan mendapatkan 10K views 3K likes dan 200 Followers" },
+		  {"id": "0004", "name": "Paket FYP Tiktok Reguler (Rp 70.000/paket)", "pricePerFollower": 70000, "min": 1, "max": 100, "desc": "Masukkan link postingan tiktok. \n Anda akan mendapatkan <br> 10K views <br> 5K likes <br> <br> 400 Followers" }
+		 ],
+	 "PAKET FYP TELEGRAM": [
+		  {"id": "0002", "name": "Paket FYP Telegram Channel (Rp 8.000/paket)", "pricePerFollower": 8000, "min": 1, "max": 100, "desc": "Masukkan link channel telegram anda. Anda akan mendapatkan 1K views 300 Followers" }
+		 ],
+	 
+	"Buzzer Indonesia Followers Instagram": [ 
+		{"id": "0007", "name": "Buzzer Indonesia Followers Instagram (Rp 50.000/K)", "pricePerFollower": 50, "min": 50, "max": 10000, "desc": "masukkan link akun pada Instagram<br> NO GARANSI <br> real dilakukan oleh pengguna dari Indonesia" }
+	],
+	"Buzzer Followers Channel WhatsApp Indonesia":  [
+		 {"id": "0006", "name": "Whatsapp Channel Member Real Indonesia buzzer (Rp 80.000/K)", "pricePerFollower": 80, "min": 0, "max": 0, "desc": "masukkan link channel WhatsApp <br> REAL USER/BUZZER INDONESIA"}
+	],
+	"Buzzer WhatsApp Reaction": [
+		{"id": "0008", "name": "(🔴🔴🔴LAYANAN INI DIHENTIKAN)WhatsApp Channel Post Reaction [💕💖💗🫂✨🤍💝👀 ] | Pure Buzzer Indonesia - Rp25.000/k", "pricePerFollower": 250000000000, "min": 5, "max": 0, "desc": "Masukkan link postingan channel WhatsApp" }
+	],
+	    "WhatsApp Reaction": [
+		 {"id": "1352", "name": "Whatsapp Channel Post Reaction Random Mix [👍❤️😂😲😥🙏] [ max 50K ] | Ultra Fast (Rp 25.000/K)", "pricePerFollower": 25, "min": 100, "max": 10000, "desc": "masukkan link postingan pada channel WhatsApp NO GARANSI" },
+		{"id": "1353", "name": "Whatsapp Channel Post Reaction [ 👍 ] [ Max 50K ] | Ultra Fast (Rp 25.000/K)", "pricePerFollower": 25, "min": 100, "max": 10000, "desc": "masukkan link postingan pada channel WhatsApp NO GARANSI" },
+		 {"id": "1354", "name": "Whatsapp Channel Post Reaction [ ❤️ ] [ Max 50K ] | Ultra Fast (Rp 25.000/K)", "pricePerFollower": 25, "min": 100, "max": 10000, "desc": "masukkan link postingan pada channel WhatsApp NO GARANSI" }	
+			],
+      "Facebook Followers [All Type]": [  
+		{ "id": "1616", "name": "Facebook Followers FP 4 [ max 1M ] Hidden Data | Speed 20K/ Day | No Refill (Rp 2.100/K)", "pricePerFollower": 2.1, "min": 100, "max": 1000000, "desc":  "Masukkan username/link account facebook NO GARANSI" },  
+        { "id": "1606", "name": "Facebook Followers FP 3 [ max 1M ] Hidden Quality | Speed 50K/ Day | Refill 30 Days (Rp 4.500/K)", "pricePerFollower": 4.5, "min": 100, "max": 1000000, "desc":  "Masukkan username/link account facebook GARANSI 30 HARI" }
+		],
+	 "Telegram Channel Member": [  
+		{ "id": "357", "name": "Telegram Channel Members FP 1 [ max 100K ] (Rp 4.800/K)", "pricePerFollower": 4.8, "min": 100, "max": 1000000, "desc":  "Masukkan username telegram atau link CHANNEL WAJIB PUBLIC! <br> NO GARANSI" },  
+    	{ "id": "1147", "name": "Telegram Channel/Group Members FP 11 [ max 150K ] Refill 30Days | 15k/days (Rp 12.600/K)", "pricePerFollower": 12.6, "min": 100, "max": 1000000, "desc":  "Masukkan username telegram atau link CHANNEL WAJIB PUBLIC! GARANSI 30 HARI" },
+		{ "id": "808", "name": "Telegram Channel Members FP 10 [ R30 ] [ High quality ] [100k/day] less drop (Rp 16.000/K)", "pricePerFollower": 16, "min": 100, "max": 1000000, "desc":  "Masukkan username telegram atau link CHANNEL WAJIB PUBLIC! GARANSI 30 HARI" },
+		 {"id": "363", "name": "Telegram Channel/Group Members FP 7 | Non Drop | 30 Days Refill (Rp 26.000/K)", "pricePerFollower": 26, "min": 100, "max": 100000, "desc": "masukkan link channel telegram wajib public!, garansi 30 hari, permanen" }
+      ],
+	"Telegram Channel/Post Views": [  
+		{ "id": "374", "name": "Telegram Post View - LAST 10 POST [10M] (Rp 3.800/K)", "pricePerFollower": 3.8, "min": 100, "max": 1000000, "desc":  "Masukkan username telegram atau link CHANNEL WAJIB PUBLIC! NO GARANSI/n DAPAT MENAMBAHKAN VIEWS POSTINGAN AKUN ATAU CHANNEL TELEGRAM UNTUK 10 POST TERAKHIR" }  
+    	],
+	"Telegram Post Custom Comments Indonesia": [
+		{"id": "1", "name": "Telegram Buzzer Indonesia Post Custom Comments | Max 500 - Rp 320.000/K", "pricePerFollower": 320, "min": 10, "max": 10000, "desc": "silahkan kirim custom komen ke gmail alvinojeremy74@gmail.com  sertakan id transaksi pada judul gmail<br> Custom komen 10 harap kirim sebanyak 10 baris meskipun pesannya sama"}
+		],
+	"Tiktok Followers Indonesia": [
+		{ "id": "0008", "name": "Tiktok Followers Indonesia by Buzzer - Rp60.000/K", "pricePerFollower": 60, "min": 5, "max": 1000, "desc": "Natural dan Pure dari buzzer Indonesia!" },
+		{ "id": "1517", "name": "Tiktok Followers Indonesia FP 2 [ High Quality ] [ No Refill] - Rp65.000/K", "pricePerFollower": 65, "min": 100, "max": 10000, "desc": "Tidak ada garansi!", "average": "9 jam 18 menit" },
+		{ "id": "682", "name": "Tiktok Followers Indonesia FP 1 [ High Quality ] [ Refill 30 Days ] - Rp90.000/K", "pricePerFollower": 90, "min": 50, "max": 10000, "desc": "Permanen\nGaransi 30 Hari\n akun berprofil", "average": "4 jam 36 menit" }
+	],
+	 "Tiktok Followers (Emergency)": [  
+		 { "id": "1791", "name": "TikTok Followers FP 7 [ Max 1M ] [ Speed 10K/ Day ] Slow | No Refill (Rp 25.500/K)", "pricePerFollower": 25.5, "min": 100, "max": 1000000, "desc":  " No Refill", "average": "2 jam 1 menit"},
+		{ "id": "1774", "name": "TikTok Followers FP 34 [ max 1M ]  10K/ Day | No Refill (Rp27.500/k)", "pricePerFollower": 27.5, "min": 100, "max": 1000000, "desc":  "NO GARANSI!", "average": "57 menit" },
+       { "id": "1733", "name": "TikTok Followers FP 1 [ max 1M ] Profile Quality | 50K/ Day | No Refill (Rp 36.500/K)", "pricePerFollower": 36.5, "min": 10, "max": 1000000, "desc":  "Speed 50K/Day No Refill", "average": "1 jam 31 menit" },
+		 { "id": "1396", "name": "TikTok Followers FP 16 [ max 10M ] 100% Real Account [ Speed 100K/ Day ] Working Update [ Refill 30 Days ] (Rp 46.000/K)", "pricePerFollower": 49, "diskon": 46, "min": 50, "max": 100000, "desc": "Garansi 30 hari", "average": "4 jam 20 menit" }
+      ],
+   "Instagram Followers (Best Speed)": [  
+		{ "id": "1807", 
+			"name": "Instagram Followers FP 33 [ Max 1M ] HQ | No Refill | Speed 50K/ Day | No Refill (Rp 8.600/K)", 
+			"pricePerFollower": 8.6, 
+			"min": 100, "max": 1000000, 
+			"desc":  "NO GARANSI!",
+			"average": "23 menit"
+		},
+	   { "id": "1622",
+		   "name": " Instagram Followers FP 17 [ max 1M ] Real Quality | Speed 100K/ Day | Refill 30 Days (Rp 16.760/k)",
+		   "pricePerFollower": 16.760, 
+		   "min": 50, "max": 500000,
+		"desc": "Real Quality <br>- Speed 100K/ Day <br> Refill 30 Days",
+		   "average": "30 menit"
+	   },
+	   { "id": "1459",
+		   "name": "Instagram Followers FP 2 [ max 10M ] Old Account +15 Post | Speed : 20K/ Day | Refill 30 Days (Rp 18.760/k)",
+		   "pricePerFollower": 18.760, 
+		   "min": 50, "max": 10000000,
+		"desc": "Old Account <br>- Speed 20K/ Day <br> Refill 30 Days",
+		   "average": "30 menit"
+	   },
+     { "id": "1572", "name": "Instagram Followers FP 12 [ max 1M ] Real | 40K/ Day | Refill 30 Days (Rp 32.000/K)", "pricePerFollower": 32, "min": 10, "max": 1000000, "desc":  "Free Refill 30D" },
+       { "id": "1471", "name": "Instagram Followers FP 7 [ max 100K ] [ Old Account ] [ Speed 5K - 20K/ Day ] [ Refill 30 Days ] (Rp 72.250/K)", "pricePerFollower": 72.250, "min": 100, "max": 1000000, "desc":  "Refill 30D" }
+      ],
+	"Instagram Followers (Update Working)": [
+		{"id": "1683", "name": "Instagram Followers FP 49 [ Max 10K ] Apps Data | Speed 10K/ Day | No Refill (Rp 6.660)", "pricePerFollower": 6.660, "min": 100, "max": 100000, "desc": "TIDAK ADA GARANSI ATAU REFFUND APAPUN YANG TERJADI <br> JANGAN BANYAK KOMPLAIN" },
+		{"id": "1150", "name": "Instagram Followers FP 22 [ Mixed ] Max 300K | 10K/ Days | No Refill (Rp 9.010)", "pricePerFollower": 9.010, "min": 100, "max": 100000, "desc": "TIDAK ADA GARANSI ATAU REFFUND APAPUN YANG TERJADI <br> JANGAN BANYAK KOMPLAIN" },
+		{"id": "1646", "name": "Instagram Followers FP 42 [ Max 10K ] [ Speed 10K/ Day ] Refill 30 Days (Rp 10.950)", "pricePerFollower": 10.950, "min": 100, "max": 100000, "desc": "GARANSI 30 HARI <br> TIDAK ADA REFFUND APAPUN YANG TERJADI <br> JANGAN BANYAK KOMPLAIN" }
+	],
+	"Instagram Followers (Old Account Updated)": [
+{"id": "1295", "name": "Instagram Followers FP 22 | Max 1M | Old account | 50k/Days | Refill 30 Days | Flag Off (Rp 11.960)", "pricePerFollower": 11.960, "min": 50, "max": 100000, "desc": "GARANSI 30 HARI <br> old account" },
+		{"id": "1578", "name": "Instagram Followers FP 38 [ Max 50K ] Old Account | 50K/ Day | No Refill (Rp 11.960)", "pricePerFollower": 11.960, "min": 50, "max": 100000, "desc": "TIDAK ADA GARANSI <br> old account" }		
+],
+	"Instagram Followers Indonesia": [
+		{"id": "1761", "name": "Instagram Followers Indonesia FP 21 [ Max 50K ] Ultra Fast | No Refill (Rp28.500/k)", "pricePerFollower": 28.5, "min": 100, "max": 50000, "desc": "Tidak ada garansi <br> Followers Indonesia" },
+		{"id": "1762", "name": "Instagram Followers Indonesia FP 22 [ Max 50K ] Ultra Fast | Refill 7 Days (Rp 30.000/K)", "pricePerFollower": 30, "min": 50, "max": 50000, "desc": " garansi 7 hari <br> Followers Indonesia" }
+			],
+	"Instagram Like": [
+		{ "id":"1533", "name": "Instagram Likes FP 32 [ Max 10K ] HQ Profile | Speed 10K/ Day | No Refil - Rp 1.100/K", "pricePerFollower": 1.1, "min": 100, "max": 100000, "desc": "Tidak ada garansi! tidak ada komplain!!" },
+		{ "id":"1473", "name": " Instagram Likes FP 21 [ max 1M ] Speed 100K/Day | Best Speed | Refill 30 Days - Rp 2.700/K", "pricePerFollower": 2.7, "min": 10, "max": 100000, "desc": "Garansi 30 hari" }, 
+		{ "id": "86", "name": " Instagram Likes FP 8 [High Quality All with Profiles] [No Drop] [10-50K/D] [Instant] - Rp 4.700/K", "pricePerFollower": 7, "diskon": 4.700, "min": 10, "max": 10000, "desc": "Permanen <br> no garansi" },
+			{ "id": "1765", "name": "Instagram Likes Indonesia FP 3 [ Max 1K ] Ultra Fast | No Refill - Rp 16.000/K", "pricePerFollower": 16, "min": 10, "max": 10000, "desc": "Permanen <br> no garansi" }
+		],
+	"Instagram Likes Indonesia": [
+	{ "id":"1766", "name": "Instagram Likes Indonesia FP 4 [ Max 1K ] Ultra Fast | Refill 7 Days - Rp 10.800/K", "pricePerFollower": 10.8, "min": 50, "max": 100000, "desc": "Garansi 7 hari", "average": "13 menit" },
+     { "id":"1767", "name": "Instagram Likes Indonesia FP 5 [ Max 1K ] Ultra Fast | Refill 30 Days - Rp 20.800/K", "pricePerFollower": 20.8, "min": 50, "max": 100000, "desc": "Garansi 30 hari", "average": "20 menit" }
+	],
+		"Instagram Comments Custom": [
+		{"id": "1567", "name": "Instagram Komentar Custom FP 1 [ Max 10K ] [ HQ ] [ No Refill ] - Rp 12.540/K", "pricePerFollower": 12.540, "min": 10, "max": 10000, "desc": "Masukkan link/target berupa link postingan <br> silahkan kirimkan pesan/custom komentar ke gmail<br> alvinojeremy74@gmail.com <br> dengan menyertakan id transaksi anda <br> 1 baris = 1 komentar" }
+	],
+	"Instagram View": [
+		{"id": "50", "name": "Instagram Video Views All Link FP 1 | Unlimited | Video+ Reel + IGTV - Rp 68/k", "pricePerFollower": 0.068, "min": 1000, "max": 100000, "desc": "Masukkan Link Reels/Postingan/Story" }
+	],
+  "Tiktok Views": [  
+		{ "id": "1756", "name": "Tiktok View FP 54 [ max Unlimited ] Speed 500K/ Day | No Refill (Rp 400/K)", "pricePerFollower": 0.4, "min": 1000, "max": 1000000, "desc":  "NO GARANSI!", "average": "20 menit" },
+     { "id": "1570", "name": "TikTok View 48 [ max Unlimited ] 5M/ Day | Refill 30 Days (Rp 2.000/K)", "pricePerFollower": 2, "min": 1000, "max": 1000000, "desc":  "No Garansi" }
+      ],
+  "Tiktok Like": [  
+	 {"id": "1772", "name": "Tiktok Likes FP 116 [ max 100K ] LQ | speed 20K/days | No Refill (Rp 3.350/K)", "pricePerFollower": 5.957, "diskon": 3.350, "min": 100, "max": 100000, "desc": "tidak ada garansi atau reffund apapun yang terjadi <br> kualitas rendah", "average": "1 hari 1 jam"},
+	   {"id": "1747", "name": "Tiktok Likes FP 116 [ max 100K ] LQ | speed 20K/days | No Refill (Rp 4.150/K)", "pricePerFollower": 4.150, "min": 100, "max": 100000, "desc": "tidak ada garansi atau reffund apapun yang terjadi <br> kualitas rendah", "average": "1 hari 4 jam"},
+	  { "id": "641", "name": "TikTok Likes FP 17 [ Max 20K ] | HQ Real Profiles | Start : 0-5 Minutes | SuperFast | Hours 1K (Rp 4.600/K)", "pricePerFollower": 4.6,  "min": 100, "max": 1000000, "desc":  "Speed 50K/day <br> high quality", "average": "32 menit"},
+		{ "id": "951", "name": "TikTok Likes FP 95 | max 1M | Speed 50K/ Days | Refill 30 Days (Rp 15.490/K)", "pricePerFollower": 15.490,  "min": 100, "max": 1000000, "desc":  "GARANSI 30D, MIX QUALITY", "average": "13 jam 13 menit"},
+	  { "id": "700", "name": "TikTok Likes FP 24 [ Max 10K ] | HQ Profiles | Non Drop | Lifetime ♻️ | Instant Start ⚡ (Rp 8.600/K)", "pricePerFollower": 8.6,  "min": 100, "max": 1000000, "desc":  "REFILL: LIFETIME <br> high quality", "average": "28 menit"},
+	  { "id": "882", "name": " Tiktok LIKE FP 44 [ Refill 90 Days ] Non Drop [ Ultra Fast ] (Rp 7.890/K)", "pricePerFollower": 7.890, "min": 100, "max": 100000, "desc": "TIDAK MENJAMIN Permanen, garansi 90 hari", "average": "20 menit" },
+       { "id": "31", "name": "TikTok Power Likes FP 3 [100% Real Users - Instant - 20K/D - R30 ] [Best For Ranking] (Rp 7.090/K)", "pricePerFollower": 7.090, "min": 100, "max": 100000, "desc": "Permanen, garansi 30 hari", "average": "10 menit" }  
+  ],
+	"Tiktok Likes Indonesia": [
+		 { "id": "196", "name": "TikTok Likes Indonesia FP 2 | [ Max 100K ] | HQ Indonesia Account | 30 Days (Rp 11.560/K)", "pricePerFollower": 11.560, "min": 50, "max": 100000, "desc": "garansi 30 hari <br> terkadang yang masuk luar negeri" }
+	],
+	"Shopee Followers": [
+		{"id": "621", "name": "Shopee Followers Indonesia FP 3 [ NON DROP ][ max 10K ] [ INSTANT ] - Rp12.000/K", "pricePerFollower": 14, "min": 100, "max": 10000, "desc": "Permanen\nNo garansi"}
+      ]
+    }
