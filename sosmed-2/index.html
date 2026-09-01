@@ -1,1246 +1,1835 @@
-<!DOCTYPE html>    
-<html lang="id">    
-<head>    
-<meta charset="UTF-8">    
-<meta name="viewport" content="width=device-width, initial-scale=1.0">    
-<title>Shine Shop - SMM</title>    
-<style>  
-	/* ===============================    
-   ROOT THEME    
-=================================*/    
-:root {    
-  --bg: #090d16;    
-  --glass: rgba(255, 255, 255, 0.04);    
-  --glass-strong: rgba(255, 255, 255, 0.09);    
-  --border: rgba(255, 255, 255, 0.07);    
-  --accent1: #8b5cf6;    
-  --accent2: #06b6d4;    
-  --accent-gradient: linear-gradient(135deg, #8b5cf6, #06b6d4);  
-  --text: #f1f5f9;    
-  --text-muted: #94a3b8;  
-  --danger: #f87171;  
-  --discount-bg: #f59e0b;  
-  --discount-text: #090d16;  
-  --radius: 16px;  
-  --radius-sm: 10px;  
-  --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);  
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  
-}    
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<title>Shine Shop - SMM</title>
+<style>
 /* ===============================
-BASE
+   ROOT THEME
 =================================*/
-* {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
-font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-transition: var(--transition);
+:root {
+  --bg: #0b1220;
+  --bg-soft: #111827;
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-strong: rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.08);
+  --accent1: #8b5cf6;
+  --accent2: #06b6d4;
+  --accent-gradient: linear-gradient(135deg, #8b5cf6, #06b6d4);
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --danger: #f87171;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --discount-bg: #f59e0b;
+  --discount-text: #0b1220;
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 html {
-scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-margin: 0;
-color: var(--text);
-background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a, #0b1524);
-background-size: 400% 400%;
-animation: gradientBG 20s ease infinite;
-min-height: 100vh;
-line-height: 1.6;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-@keyframes gradientBG {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
+/* Lightweight ambient glow */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(139, 92, 246, 0.18), transparent 50%),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(6, 182, 212, 0.12), transparent 45%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(139, 92, 246, 0.08), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ===============================
-SCROLLBAR CUSTOM
+   SCROLLBAR
 =================================*/
-::-webkit-scrollbar {
-width: 6px;
-height: 6px;
-}
-::-webkit-scrollbar-track {
-background: var(--bg);
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-background: var(--accent1);
-border-radius: 10px;
+  background: rgba(139, 92, 246, 0.45);
+  border-radius: 10px;
 }
-::-webkit-scrollbar-thumb:hover {
-background: var(--accent2);
-}
+::-webkit-scrollbar-thumb:hover { background: var(--accent2); }
 
 /* ===============================
-HEADER
+   HEADER
 =================================*/
 .header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 14px 24px;
-backdrop-filter: blur(20px) saturate(1.2);
--webkit-backdrop-filter: blur(20px) saturate(1.2);
-background: rgba(15, 23, 42, 0.6);
-border-bottom: 1px solid var(--border);
-position: sticky;
-top: 0;
-z-index: 80;
-transition: background 0.3s ease;
-}
-
-.header.scrolled {
-background: rgba(9, 13, 22, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: rgba(11, 18, 32, 0.85);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .brand {
-display: flex;
-align-items: center;
-gap: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo {
-width: 44px;
-height: 44px;
-border-radius: var(--radius-sm);
-overflow: hidden;
-background: rgba(255, 255, 255, 0.05);
-border: 1px solid var(--border);
-box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-transition: box-shadow 0.4s ease;
-}
-
-.logo:hover {
-box-shadow: 0 0 35px rgba(139, 92, 246, 0.4);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .logo img {
-width: 100%;
-height: 100%;
-object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 h1 {
-font-size: 18px;
-margin: 0;
-font-weight: 600;
-letter-spacing: 0.3px;
-background: var(--accent-gradient);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: 0.2px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ===============================
-HAMBURGER
+   HAMBURGER
 =================================*/
 .hamburger-btn {
-margin-left: auto;
-background: var(--glass);
-border: 1px solid var(--border);
-padding: 8px 12px;
-border-radius: var(--radius-sm);
-cursor: pointer;
-display: flex;
-flex-direction: column;
-gap: 4.5px;
-transition: all 0.3s ease;
+  margin-left: auto;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  padding: 9px 11px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4.5px;
+  transition: background var(--transition), border-color var(--transition);
 }
 
 .hamburger-btn:hover {
-background: var(--glass-strong);
-border-color: rgba(255, 255, 255, 0.2);
-transform: scale(1.02);
+  background: var(--glass-strong);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .hamburger-icon span {
-display: block;
-height: 2px;
-width: 22px;
-background: white;
-border-radius: 10px;
-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  height: 2px;
+  width: 20px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  transition: transform 0.28s ease, opacity 0.2s ease;
 }
 
 .hamburger-btn.active .hamburger-icon span:nth-child(1) {
-transform: rotate(45deg) translateY(5px) translateX(2px);
+  transform: translateY(6.5px) rotate(45deg);
 }
 .hamburger-btn.active .hamburger-icon span:nth-child(2) {
-opacity: 0;
-transform: scale(0.8);
+  opacity: 0;
+  transform: scaleX(0);
 }
 .hamburger-btn.active .hamburger-icon span:nth-child(3) {
-transform: rotate(-45deg) translateY(-5px) translateX(2px);
+  transform: translateY(-6.5px) rotate(-45deg);
 }
 
 /* ===============================
-OFFCANVAS
+   OFFCANVAS
 =================================*/
 .offcanvas {
-position: fixed;
-top: 0;
-left: -300px;
-width: 280px;
-height: 100%;
-background: rgba(9, 13, 22, 0.97);
-backdrop-filter: blur(24px);
--webkit-backdrop-filter: blur(24px);
-padding: 30px 20px;
-z-index: 100;
-border-right: 1px solid var(--border);
-box-shadow: 12px 0 48px rgba(0, 0, 0, 0.6);
-transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: rgba(11, 18, 32, 0.97);
+  padding: 24px 18px;
+  z-index: 100;
+  border-right: 1px solid var(--border);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.45);
+  transform: translateX(-105%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  will-change: transform;
 }
 
 .offcanvas.open {
-left: 0;
+  transform: translateX(0);
 }
 
 .offcanvas-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 24px;
-padding-bottom: 16px;
-border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
 }
 
-.offcanvas-header .brand-text {
-font-size: 18px;
-font-weight: 600;
-background: var(--accent-gradient);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+.offcanvas-header strong {
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .close-offcanvas {
-background: var(--glass);
-border: 1px solid var(--border);
-color: var(--text-muted);
-padding: 6px 14px;
-border-radius: var(--radius-sm);
-cursor: pointer;
-font-size: 14px;
-transition: all 0.3s ease;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  display: grid;
+  place-items: center;
+  transition: background var(--transition), color var(--transition);
 }
 
 .close-offcanvas:hover {
-background: var(--glass-strong);
-color: white;
-border-color: var(--danger);
+  background: var(--glass-strong);
+  color: white;
+  border-color: var(--danger);
 }
 
 .menu-list {
-list-style: none;
-padding: 0;
-margin-top: 8px;
+  list-style: none;
+  margin-top: 6px;
 }
 
-.menu-list li {
-margin-bottom: 8px;
-}
+.menu-list li { margin-bottom: 8px; }
 
 .menu-list a {
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 14px 16px;
-background: var(--glass);
-border-radius: var(--radius-sm);
-color: var(--text-muted);
-text-decoration: none;
-border: 1px solid var(--border);
-font-weight: 500;
-font-size: 14px;
-transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  background: var(--glass);
+  border-radius: 11px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 14px;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
 }
 
 .menu-list a:hover {
-background: rgba(139, 92, 246, 0.12);
-color: white;
-border-color: var(--accent1);
-transform: translateX(8px);
-box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
-}
-
-.menu-list a .icon {
-font-size: 18px;
+  background: rgba(139, 92, 246, 0.14);
+  color: white;
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateX(4px);
 }
 
 /* ===============================
-OVERLAY
+   OVERLAY
 =================================*/
 .overlay {
-position: fixed;
-inset: 0;
-background: rgba(0, 0, 0, 0.6);
-backdrop-filter: blur(6px);
--webkit-backdrop-filter: blur(6px);
-opacity: 0;
-pointer-events: none;
-z-index: 90;
-transition: opacity 0.4s ease;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 90;
+  transition: opacity 0.3s ease;
 }
+
 .overlay.show {
-opacity: 1;
-pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ===============================
-CONTAINER
+   CONTAINER
 =================================*/
 .container {
-max-width: 720px;
-margin: 48px auto;
-padding: 40px 44px;
-border-radius: var(--radius);
-background: rgba(30, 41, 59, 0.35);
-backdrop-filter: blur(24px) saturate(1.1);
--webkit-backdrop-filter: blur(24px) saturate(1.1);
-border: 1px solid var(--border);
-box-shadow: var(--shadow);
-animation: fadeUp 0.6s ease both;
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 24px auto 40px;
+  padding: 28px 28px 32px;
+  border-radius: var(--radius);
+  background: rgba(17, 24, 39, 0.72);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
-@keyframes fadeUp {
-from {
-opacity: 0;
-transform: translateY(30px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
-}
-
-/* ===============================
-HEADING
-=================================*/
 h2 {
-text-align: center;
-margin-top: 0;
-margin-bottom: 32px;
-font-weight: 700;
-font-size: 28px;
-letter-spacing: -0.5px;
-background: var(--accent-gradient);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+  text-align: center;
+  margin: 0 0 24px;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.3px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ===============================
-FORM
+   FORM
 =================================*/
 label {
-display: block;
-margin-top: 22px;
-font-size: 12px;
-font-weight: 600;
-color: var(--text-muted);
-letter-spacing: 0.8px;
-text-transform: uppercase;
+  display: block;
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--text-muted);
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
 }
 
-label .required {
-color: var(--danger);
-margin-left: 4px;
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-top: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(11, 18, 32, 0.65);
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-input, select {
-width: 100%;
-padding: 14px 18px;
-margin-top: 6px;
-border-radius: var(--radius-sm);
-border: 1px solid var(--border);
-background: rgba(15, 23, 42, 0.6);
-color: white;
-font-size: 14px;
-transition: all 0.3s ease;
+/* Cleaner select / dropdown */
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2394a3b8' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+  padding-right: 36px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.4;
+  min-height: 44px;
 }
 
-input:hover, select:hover {
-border-color: rgba(255, 255, 255, 0.15);
+select option {
+  background: #111827;
+  color: #f1f5f9;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  white-space: normal;
 }
 
-input:focus, select:focus {
-outline: none;
-border-color: var(--accent2);
-box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15), 0 0 30px rgba(6, 182, 212, 0.08);
-background: rgba(15, 23, 42, 0.85);
+select option:checked {
+  background: rgba(139, 92, 246, 0.3);
+  color: #fff;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.14);
+  background: rgba(11, 18, 32, 0.9);
+}
+
+select:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2306b6d4' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.5;
 }
 
 .desc, .aver {
-margin-top: 12px;
-padding: 16px 20px;
-background: var(--glass);
-border-radius: var(--radius-sm);
-border: 1px dashed rgba(255, 255, 255, 0.08);
-font-size: 13px;
-color: var(--text-muted);
-line-height: 1.6;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--glass);
+  border-radius: var(--radius-sm);
+  border: 1px dashed rgba(255, 255, 255, 0.07);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.comment-info {
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: rgba(6, 182, 212, 0.07);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(6, 182, 212, 0.14);
+  font-size: 12px;
+  color: #06b6d4;
+  display: none;
+}
+
+.comment-info.show { display: block; }
+
+.comment-info .count {
+  color: #facc15;
+  font-weight: 700;
 }
 
 .discount-badge {
-display: inline-block;
-background: var(--discount-bg);
-color: var(--discount-text);
-padding: 2px 14px;
-border-radius: 20px;
-font-weight: 700;
-font-size: 11px;
-margin-left: 8px;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-animation: pulse-badge 2s ease-in-out infinite;
-}
-
-@keyframes pulse-badge {
-0%, 100% { transform: scale(1); }
-50% { transform: scale(1.04); }
+  display: inline-block;
+  background: var(--discount-bg);
+  color: var(--discount-text);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 10px;
+  margin-left: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
 
 .price-strike {
-text-decoration: line-through;
-color: var(--text-muted);
-font-size: 13px;
-margin-right: 8px;
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-right: 6px;
 }
 
 .price-discount {
-color: var(--discount-bg);
-font-weight: 700;
-font-size: 16px;
+  color: var(--discount-bg);
+  font-weight: 700;
+  font-size: 15px;
 }
 
 /* ===============================
-SYARAT & KETENTUAN
+   SORT BUTTONS
+=================================*/
+.sort-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 12px 0 4px;
+}
+
+.sort-btn {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+
+.sort-btn:hover {
+  background: var(--glass-strong);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.sort-btn.active {
+  background: rgba(139, 92, 246, 0.2);
+  color: #c4b5fd;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+/* ===============================
+   TERMS
 =================================*/
 .terms-container {
-margin-top: 24px;
-padding: 16px 20px;
-background: var(--glass);
-border-radius: var(--radius-sm);
-border: 1px solid var(--border);
-transition: all 0.3s ease;
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--glass);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  transition: border-color var(--transition), background var(--transition);
 }
 
-.terms-container:hover {
-border-color: rgba(255, 255, 255, 0.12);
+.terms-container.terms-ok {
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.06);
 }
 
-.terms-container .terms-header {
-display: flex;
-align-items: center;
-gap: 12px;
-cursor: pointer;
-user-select: none;
+.terms-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.terms-container .terms-header input[type="checkbox"] {
-width: 20px;
-height: 20px;
-accent-color: var(--accent2);
-cursor: pointer;
-flex-shrink: 0;
-margin: 0;
+/* Custom checkbox (checklist) */
+.terms-check {
+  position: relative;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
 }
 
-.terms-container .terms-header label {
-margin: 0;
-font-size: 13px;
-font-weight: 500;
-color: var(--text);
-text-transform: none;
-letter-spacing: 0;
-cursor: pointer;
+.terms-check input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
 }
 
-.terms-container .terms-header label .terms-link {
-color: var(--accent2);
-text-decoration: underline;
-cursor: pointer;
-transition: color 0.3s ease;
-font-weight: 600;
+.terms-check-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  background: rgba(11, 18, 32, 0.6);
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  pointer-events: none;
 }
 
-.terms-container .terms-header label .terms-link:hover {
-color: var(--accent1);
+.terms-check-box svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.terms-container .terms-content {
-max-height: 0;
-overflow: hidden;
-transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+.terms-check input:checked + .terms-check-box {
+  border-color: var(--success);
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
 }
 
-.terms-container .terms-content.open {
-max-height: 400px;
+.terms-check input:checked + .terms-check-box svg {
+  opacity: 1;
+  transform: scale(1);
 }
 
-.terms-container .terms-content-inner {
-margin-top: 12px;
-padding: 14px 16px;
-background: rgba(15, 23, 42, 0.5);
-border-radius: var(--radius-sm);
-font-size: 13px;
-color: var(--text-muted);
-line-height: 1.8;
-max-height: 300px;
-overflow-y: auto;
-border: 1px solid var(--border);
+.terms-check input:focus-visible + .terms-check-box {
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.25);
 }
 
-.terms-container .terms-content-inner::-webkit-scrollbar {
-width: 4px;
+.terms-header:hover .terms-check-box {
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
-.terms-container .terms-content-inner::-webkit-scrollbar-thumb {
-background: var(--accent1);
-border-radius: 10px;
+.terms-check input:checked ~ .terms-check-box,
+.terms-header:hover .terms-check input:checked + .terms-check-box {
+  border-color: var(--success);
 }
 
-.terms-container .terms-toggle {
-background: none;
-border: none;
-color: var(--text-muted);
-font-size: 12px;
-cursor: pointer;
-padding: 4px 0;
-margin-top: 8px;
-text-decoration: underline;
-transition: color 0.3s ease;
-width: auto;
-box-shadow: none;
+.terms-header label {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  text-transform: none;
+  letter-spacing: 0;
+  cursor: pointer;
+  line-height: 1.45;
+  flex: 1;
 }
 
-.terms-container .terms-toggle:hover {
-color: white;
-transform: none;
-box-shadow: none;
+.terms-link {
+  color: var(--accent2);
+  text-decoration: underline;
+  font-weight: 600;
 }
 
-.terms-container .terms-toggle::after {
-display: none;
+.terms-link:hover { color: var(--accent1); }
+
+.terms-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
 }
+
+.terms-content.open { max-height: 320px; }
+
+.terms-content-inner {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: rgba(11, 18, 32, 0.55);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+}
+
+.terms-toggle {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 0 0;
+  margin-top: 4px;
+  text-decoration: underline;
+  width: auto;
+  box-shadow: none;
+  font-family: inherit;
+}
+
+.terms-toggle:hover { color: white; }
 
 .terms-error {
-color: var(--danger);
-font-size: 12px;
-margin-top: 8px;
-display: none;
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 8px;
+  display: none;
 }
 
-.terms-error.show {
-display: block;
-}
+.terms-error.show { display: block; }
 
 /* ===============================
-BUTTON
+   BUTTON
 =================================*/
-button {
-width: 100%;
-padding: 16px 24px;
-margin-top: 32px;
-border-radius: var(--radius-sm);
-border: none;
-font-weight: 600;
-font-size: 15px;
-cursor: pointer;
-background: var(--accent-gradient);
-color: white;
-box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
-transition: all 0.3s ease;
-position: relative;
-overflow: hidden;
+button.primary,
+.btn-primary {
+  width: 100%;
+  padding: 13px 20px;
+  margin-top: 22px;
+  border-radius: var(--radius-sm);
+  border: none;
+  font-weight: 650;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--accent-gradient);
+  color: white;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.28);
+  transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+  position: relative;
+  overflow: hidden;
 }
 
-button::after {
-content: '';
-position: absolute;
-inset: 0;
-background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-opacity: 0;
-transition: opacity 0.4s ease;
+button.primary:hover,
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(6, 182, 212, 0.32);
 }
 
-button:hover::after {
-opacity: 1;
+button.primary:active,
+.btn-primary:active {
+  transform: translateY(0);
 }
 
-button:hover {
-transform: translateY(-3px);
-box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
-}
-
-button:active {
-transform: translateY(0);
-box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
-}
-
-button:disabled {
-opacity: 0.6;
-cursor: not-allowed;
-transform: none !important;
+button.primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 /* ===============================
-PARAGRAPH
+   ALERT / INFO
 =================================*/
-p {
-color: var(--danger);
-font-size: 13px;
-line-height: 1.7;
-margin-top: 12px;
-margin-bottom: 8px;
-padding: 12px 16px;
-background: rgba(248, 113, 113, 0.06);
-border-radius: var(--radius-sm);
-border-left: 3px solid var(--danger);
-}
-
-p.success {
-color: #34d399;
-border-left-color: #34d399;
-background: rgba(52, 211, 153, 0.06);
-}
-
-p.info {
-color: var(--accent2);
-border-left-color: var(--accent2);
-background: rgba(6, 182, 212, 0.06);
+.alert {
+  color: var(--danger);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  padding: 12px 14px;
+  background: rgba(248, 113, 113, 0.06);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--danger);
 }
 
 /* ===============================
-RESPONSIVE
+   RESPONSIVE
 =================================*/
 @media (max-width: 768px) {
-.container {
-padding: 24px 20px;
-margin: 20px 16px;
-border-radius: var(--radius-sm);
-}
+  .container {
+    padding: 18px 14px 24px;
+    margin: 14px 10px 28px;
+    border-radius: 14px;
+  }
 
-.header {
-padding: 12px 16px;
-}
+  .header { padding: 10px 12px; }
+  h1 { font-size: 15px; }
+  h2 { font-size: 18px; margin-bottom: 18px; }
 
-h1 {
-font-size: 16px;
-}
+  .offcanvas { width: 260px; }
+  .logo { width: 34px; height: 34px; }
 
-h2 {
-font-size: 22px;
-}
+  input, select, textarea {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
 
-.offcanvas {
-width: 260px;
-left: -280px;
-}
+  select {
+    min-height: 42px;
+    padding-right: 34px;
+    background-position: right 12px center;
+  }
 
-.logo {
-width: 38px;
-height: 38px;
-}
-
-.hamburger-btn {
-padding: 6px 10px;
-}
-
-.hamburger-icon span {
-width: 18px;
-}
-
-input, select {
-padding: 12px 14px;
-font-size: 13px;
-}
-
-button {
-font-size: 14px;
-padding: 14px 20px;
-}
-
-.terms-container {
-padding: 12px 14px;
-}
+  button.primary, .btn-primary {
+    font-size: 13px;
+    padding: 12px 14px;
+  }
 }
 
 @media (max-width: 400px) {
-.container {
-padding: 16px;
+  .container { padding: 14px 12px 20px; }
+  .brand { gap: 8px; }
+  .desc, .aver { padding: 10px 12px; font-size: 12px; }
 }
 
-.brand {
-gap: 10px;
+/* Reduce motion for accessibility & performance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.desc, .aver {
-padding: 12px 14px;
-font-size: 12px;
-}
-}
-
-/* ===============================
-UTILITY
-=================================*/
-.text-center { text-align: center; }
+/* Utility */
 .text-muted { color: var(--text-muted); }
-.mt-1 { margin-top: 8px; }
-.mt-2 { margin-top: 16px; }
-.mb-1 { margin-bottom: 8px; }
-.mb-2 { margin-bottom: 16px; }
-
-.fade-in {
-animation: fadeUp 0.5s ease both;
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
+#commentSection { display: none; }
 
 /* ===============================
-SKELETON LOADING (opsional)
+   CUSTOM SELECT (Mobile-friendly)
 =================================*/
-.skeleton {
-background: linear-gradient(90deg, var(--glass) 25%, var(--glass-strong) 50%, var(--glass) 75%);
-background-size: 200% 100%;
-animation: shimmer 1.6s ease-in-out infinite;
-border-radius: var(--radius-sm);
+.cselect {
+  position: relative;
+  margin-top: 6px;
+  width: 100%;
 }
 
-@keyframes shimmer {
-0% { background-position: -200% 0; }
-100% { background-position: 200% 0; }
+.cselect-trigger {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 40px 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(11, 18, 32, 0.65);
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  line-height: 1.4;
+  position: relative;
 }
 
-</style>   </head>    
-<body>    
-<audio id="bgm" autoplay loop muted>    
-  <source src="https://raw.githubusercontent.com/IkyyExecutive-v2/IkyySukaNgewe/main/uploads/1773720595309_2430_1773720593858_file_3108.mp3" type="audio/mpeg">    
-</audio>    
-<!-- HEADER -->    
-<header class="header">    
-  <div class="brand">    
-    <div class="logo">    
-      <img src="/home/logo.png" alt="Shine Shop Logo">    
-    </div>    
-    <h1>Shine Shop</h1>    
-  </div>    
-  <button class="hamburger-btn" id="menuToggle">    
-    <div class="hamburger-icon">    
-      <span></span>    
-      <span></span>    
-      <span></span>    
-    </div>    
-  </button>    
-</header>    
-<div id="menuOverlay" class="overlay"></div>    
-<nav id="siteMenu" class="offcanvas">    
-  <header style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">    
-    <strong style="font-size:18px">Menu Utama</strong>    
-    <button class="close" id="menuClose" style="font-size:22px;background:none;border:0;color:white;cursor:pointer">✕</button>    
-  </header>    
-  <ul class="menu-list">    
-	<li><a href='https://whatsapp.com/channel/0029Vb8pYHd0G0XjnloL680y'> Channel WhatsApp</a></li>    
-  </ul>    
-</nav>    
-<script>    
-const toggleBtn=document.getElementById("menuToggle");    
-const closeBtn=document.getElementById("menuClose");    
-const offcanvas=document.getElementById("siteMenu");    
-const overlay=document.getElementById("menuOverlay");    
-    
-function openMenu(){    
-  offcanvas.classList.add("open");    
-  overlay.classList.add("show");    
-  toggleBtn.classList.add("active");    
-}    
-function closeMenu(){    
-  offcanvas.classList.remove("open");    
-  overlay.classList.remove("show");    
-  toggleBtn.classList.remove("active");    
-}    
-    
-toggleBtn.onclick=()=> offcanvas.classList.contains("open")?closeMenu():openMenu();    
-closeBtn.onclick=closeMenu;    
-overlay.onclick=closeMenu;    
-</script>    
-<!-- FORM -->    
-<div class="container">    
-<h2>Suntik Sosmed 2 - Shine Shop</h2>    
-<label>Cari Layanan:</label>
-<input type="text" id="search" placeholder="Contoh: Instagram / 14444" onkeyup="searchLayanan()">
-
-<label for="kategori">Kategori:</label>
-<select id="kategori" onchange="loadLayanan()">
-  <option value="">-- Pilih Kategori --</option>    
-</select>    
-
-<label for="layanan">Layanan:</label>
-<select id="layanan" onchange="showInfo()">
-  <option value="">-- Pilih Layanan --</option>    
-</select>    
-
-<div class="desc" id="infoLayanan"></div>    
-<label>Waktu rata rata selesai:</label>  
-<div class="aver" id="average"></div>    
-
-<label>Jumlah Pesanan:</label>
-<input type="number" id="jumlah" min="1" oninput="hitungTotal()">
-
-<label>Target / Link:</label>
-<input type="text" id="target" placeholder="Masukkan username atau link">
-
-<label>Total Harga (Rp):</label>
-<input type="text" id="total" readonly>
-
-<p>Peringatan: Waktu rata rata selesai tidak sepenuhnya akurat, penghitungan waktu rata rata bedasarkan 10 transaksi terakhir <br> bila ada kendala harap hubungi customer service  
-<br>   
-WhatsApp: +6289518103883 <br>  
-Instagram: onivla_    
-</p>  
-
-<!-- ===== SYARAT & KETENTUAN ===== -->  
-<div class="terms-container" id="termsContainer">  
-  <div class="terms-header">  
-    <input type="checkbox" id="termsCheckbox">  
-    <label for="termsCheckbox">  
-      Saya menyetujui   
-      <span class="terms-link" onclick="openRules(event)">Syarat & Ketentuan</span>   
-      yang berlaku  
-    </label>  
-  </div>  
-  <div class="terms-content" id="termsContent">  
-    <div class="terms-content-inner" id="termsContentInner">  
-      <div style="text-align:center;color:#666;padding:20px;">  
-        ⏳ Memuat syarat & ketentuan...  
-      </div>  
-    </div>  
-    <button class="terms-toggle" id="termsToggleBtn" onclick="toggleTerms(event)">📖 Sembunyikan</button>  
-  </div>  
-  <div class="terms-error" id="termsError">⚠️ Anda harus menyetujui syarat & ketentuan terlebih dahulu!</div>  
-</div>  
-
-<button onclick="lanjutPembayaran()">Lanjut ke Pembayaran</button>
-
-</div>    
-
-<script>    
-const audio = document.getElementById("bgm");    
-  
-// setelah audio mulai, unmute otomatis    
-audio.addEventListener("canplay", () => {    
-  audio.muted = false;    
-  audio.volume = 1.0;    
-});    
-  
-// fallback jika browser nahan autoplay    
-setTimeout(() => {    
-  audio.muted = false;    
-  audio.play().catch(()=>{});    
-}, 1000);    
-
-// ===================== SYARAT & KETENTUAN =====================  
-const termsCheckbox = document.getElementById('termsCheckbox');  
-const termsError = document.getElementById('termsError');  
-const termsContent = document.getElementById('termsContent');  
-const termsContentInner = document.getElementById('termsContentInner');  
-const termsToggleBtn = document.getElementById('termsToggleBtn');  
-  
-let termsData = '';  
-let isTermsLoaded = false;  
-  
-function openRules(e) {  
-  if (e) e.preventDefault();  
-  e.stopPropagation();  
-  window.open('/rules/', '_blank');  
-  return false;  
-}  
-
-async function loadTerms() {  
-  try {  
-    const res = await fetch('/rules/?t=' + Date.now());  
-    if (!res.ok) {  
-      throw new Error('Gagal mengambil syarat & ketentuan');  
-    }  
-    const html = await res.text();  
-    termsData = html || 'Syarat & ketentuan belum tersedia.';  
-    termsContentInner.innerHTML = termsData;  
-    isTermsLoaded = true;  
-    console.log('✅ Syarat & ketentuan berhasil dimuat');  
-  } catch (err) {  
-    console.error('Error load terms:', err);  
-    termsContentInner.innerHTML = `  
-      <div style="color:#ff6666;">  
-        ❌ Gagal memuat syarat & ketentuan.<br>  
-        <span style="font-size:12px;color:#888;">${err.message}</span>  
-        <br><br>  
-        <button onclick="loadTerms()" style="background:#444;color:white;border:none;padding:8px 20px;border-radius:8px;cursor:pointer;width:auto;margin-top:8px;box-shadow:none;">  
-          🔄 Coba Lagi  
-        </button>  
-        <br><br>  
-        <a href="/rules/" target="_blank" style="color:var(--accent2);text-decoration:underline;">  
-          📖 Buka di halaman terpisah  
-        </a>  
-      </div>  
-    `;  
-  }  
-}  
-
-function toggleTerms(e) {  
-  if (e) e.preventDefault();  
-  const isOpen = termsContent.classList.contains('open');  
-  if (!isOpen) {  
-    if (!isTermsLoaded) {  
-      loadTerms();  
-    }  
-    termsContent.classList.add('open');  
-    termsToggleBtn.textContent = '📖 Sembunyikan';  
-  } else {  
-    termsContent.classList.remove('open');  
-    termsToggleBtn.textContent = '📖 Baca Syarat & Ketentuan';  
-  }  
-}  
-
-function validateTerms() {  
-  if (!termsCheckbox.checked) {  
-    termsError.classList.add('show');  
-    termsCheckbox.style.borderColor = 'var(--danger)';  
-    setTimeout(() => {  
-      termsError.classList.remove('show');  
-    }, 3000);  
-    return false;  
-  }  
-  termsError.classList.remove('show');  
-  termsCheckbox.style.borderColor = '';  
-  return true;  
-}  
-
-termsCheckbox.addEventListener('change', function() {  
-  if (this.checked) {  
-    termsError.classList.remove('show');  
-    termsCheckbox.style.borderColor = '';  
-    if (!termsContent.classList.contains('open') && !isTermsLoaded) {  
-      loadTerms();  
-      termsContent.classList.add('open');  
-      termsToggleBtn.textContent = '📖 Sembunyikan';  
-    }  
-  }  
-});  
-
-document.addEventListener('click', function(e) {  
-  if (e.target.tagName === 'A' && e.target.href) {  
-    // Biarkan link berjalan normal  
-  }  
-});  
-
-// ===================== DATA LAYANAN (AUTO-REFRESH TANPA RESET) =====================  
-let layananData = {};  
-let selectedService = null;  
-
-// Simpan state form sebelum refresh
-let savedFormState = {
-  kategori: '',
-  layanan: '',
-  jumlah: '',
-  target: '',
-  total: '',
-  search: ''
-};
-
-// Fungsi untuk menyimpan state form
-function saveFormState() {
-  savedFormState.kategori = document.getElementById('kategori').value;
-  savedFormState.layanan = document.getElementById('layanan').value;
-  savedFormState.jumlah = document.getElementById('jumlah').value;
-  savedFormState.target = document.getElementById('target').value;
-  savedFormState.total = document.getElementById('total').value;
-  savedFormState.search = document.getElementById('search').value;
+.cselect-trigger:hover {
+  background: rgba(11, 18, 32, 0.85);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
-// Fungsi untuk restore state form
-function restoreFormState() {
-  if (savedFormState.kategori) {
-    document.getElementById('kategori').value = savedFormState.kategori;
+.cselect-trigger:focus,
+.cselect.open .cselect-trigger {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.14);
+  background: rgba(11, 18, 32, 0.9);
+}
+
+.cselect-trigger .cselect-value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+.cselect-trigger .cselect-value.placeholder {
+  color: var(--text-muted);
+}
+
+.cselect-trigger .cselect-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  transition: transform 0.25s ease;
+}
+
+.cselect.open .cselect-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.cselect-arrow svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+/* Backdrop + Panel (bottom sheet on mobile) */
+.cselect-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.cselect-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cselect-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 210;
+  background: #111827;
+  border-radius: 20px 20px 0 0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.5);
+  max-height: min(78vh, 560px);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(105%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.cselect-panel.open {
+  transform: translateY(0);
+}
+
+.cselect-panel-header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.cselect-handle {
+  width: 36px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  margin: 0 auto 12px;
+}
+
+.cselect-panel-title {
+  font-size: 15px;
+  font-weight: 650;
+  text-align: center;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.cselect-search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(11, 18, 32, 0.75);
+  color: white;
+  font-size: 14px;
+  font-family: inherit;
+  margin: 0;
+}
+
+.cselect-search:focus {
+  outline: none;
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.12);
+}
+
+.cselect-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  padding: 6px 8px 16px;
+}
+
+.cselect-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.45;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+}
+
+.cselect-item:hover,
+.cselect-item:active {
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.cselect-item.selected {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.35);
+  color: #e9d5ff;
+}
+
+.cselect-item .cselect-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cselect-item.selected .cselect-radio {
+  border-color: var(--accent2);
+  background: var(--accent2);
+}
+
+.cselect-item.selected .cselect-radio::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0b1220;
+}
+
+.cselect-item-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.cselect-item-meta {
+  display: block;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.cselect-item .badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 20px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.cselect-item .badge-discount {
+  background: var(--discount-bg);
+  color: var(--discount-text);
+}
+
+.cselect-item .badge-comment {
+  background: rgba(6, 182, 212, 0.2);
+  color: #22d3ee;
+}
+
+.cselect-empty {
+  text-align: center;
+  padding: 28px 16px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* Desktop: panel as dropdown under trigger */
+@media (min-width: 640px) {
+  .cselect-panel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    top: calc(100% + 6px);
+    max-height: 320px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    transform: translateY(-8px) scale(0.98);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
-  if (savedFormState.layanan) {
-    document.getElementById('layanan').value = savedFormState.layanan;
+
+  .cselect-panel.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
   }
-  if (savedFormState.jumlah) {
-    document.getElementById('jumlah').value = savedFormState.jumlah;
+
+  .cselect-handle {
+    display: none;
   }
-  if (savedFormState.target) {
-    document.getElementById('target').value = savedFormState.target;
+
+  .cselect-backdrop {
+    /* still needed to close on outside click */
   }
-  if (savedFormState.total) {
-    document.getElementById('total').value = savedFormState.total;
-  }
-  if (savedFormState.search) {
-    document.getElementById('search').value = savedFormState.search;
+
+  .cselect-panel-title {
+    display: none;
   }
 }
 
-// Fungsi refresh data tanpa reset form
-async function refreshDataSilent() {
-  try {
-    const res = await fetch("/sosmed-2/list.json?ts=" + Date.now());
-    if (!res.ok) throw new Error("Gagal memuat list.json");
+@media (max-width: 768px) {
+  .cselect-trigger {
+    min-height: 42px;
+    padding: 11px 36px 11px 12px;
+    font-size: 13px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="logo">
+      <img src="/home/logo.png" alt="Shine Shop Logo" width="40" height="40" loading="lazy">
+    </div>
+    <h1>Shine Shop</h1>
+  </div>
+  <button class="hamburger-btn" id="menuToggle" aria-label="Menu" type="button">
+    <div class="hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</header>
+
+<div id="menuOverlay" class="overlay"></div>
+
+<nav id="siteMenu" class="offcanvas" aria-label="Menu utama">
+  <div class="offcanvas-header">
+    <strong>Menu Utama</strong>
+    <button class="close-offcanvas" id="menuClose" type="button" aria-label="Tutup">✕</button>
+  </div>
+  <ul class="menu-list">
+    <li><a href="/sosmed-2/cekstatus">Cek Pesanan</a></li>
+    <li><a href="https://whatsapp.com/channel/0029Vb8pYHd0G0XjnloL680y" target="_blank" rel="noopener">Channel WhatsApp</a></li>
+  </ul>
+</nav>
+
+<!-- FORM -->
+<main class="container">
+  <h2>Suntik Sosmed 2 - KGI¹²DIMAS</h2>
+
+  <label for="search">Cari Layanan</label>
+  <input type="text" id="search" placeholder="Contoh: Instagram / 14444" autocomplete="off">
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+    <div style="flex:2;min-width:150px;">
+      <label>Kategori</label>
+      <div class="cselect" id="cselectKategori" data-placeholder="-- Pilih Kategori --">
+        <button type="button" class="cselect-trigger" aria-haspopup="listbox" aria-expanded="false">
+          <span class="cselect-value placeholder">-- Pilih Kategori --</span>
+          <span class="cselect-arrow" aria-hidden="true">
+            <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </button>
+        <input type="hidden" id="kategori" value="">
+      </div>
+    </div>
+    <div style="flex:1;min-width:120px;">
+      <label for="sortHarga">Urutkan</label>
+      <select id="sortHarga">
+        <option value="default">📋 Default</option>
+        <option value="asc" selected>⬆️ Termurah</option>
+        <option value="desc">⬇️ Termahal</option>
+      </select>
+    </div>
+  </div>
+
+  <label>Layanan</label>
+  <div class="cselect" id="cselectLayanan" data-placeholder="-- Pilih Layanan --">
+    <button type="button" class="cselect-trigger" aria-haspopup="listbox" aria-expanded="false">
+      <span class="cselect-value placeholder">-- Pilih Layanan --</span>
+      <span class="cselect-arrow" aria-hidden="true">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5L6 8l3.5-3.5" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </button>
+    <input type="hidden" id="layanan" value="">
+  </div>
+
+  <div class="desc" id="infoLayanan"></div>
+
+  <label>Waktu rata-rata selesai</label>
+  <div class="aver" id="average">—</div>
+
+  <label for="jumlah">Jumlah Pesanan</label>
+  <input type="number" id="jumlah" min="1" inputmode="numeric">
+
+  <label for="target">Target / Link</label>
+  <input type="text" id="target" placeholder="Masukkan username atau link" autocomplete="off">
+
+  <!-- FORM KOMENTAR -->
+  <div id="commentSection">
+    <label for="comments">📝 Komentar (1 baris = 1 unit)</label>
+    <textarea id="comments" placeholder="Masukkan komentar per baris&#10;Contoh:&#10;Komentar 1&#10;Komentar 2&#10;Komentar 3"></textarea>
+    <div class="comment-info" id="commentInfo">
+      📊 Jumlah komentar: <span class="count" id="commentCount">0</span> / <span id="commentRequired">0</span> unit
+      <span id="commentStatus"></span>
+    </div>
+  </div>
+
+  <label for="total">Total Harga (Rp)</label>
+  <input type="text" id="total" readonly>
+
+  <div class="alert">
+    Peringatan: Waktu rata-rata selesai tidak sepenuhnya akurat. Perhitungan berdasarkan 10 transaksi terakhir.<br>
+    Bila ada kendala hubungi CS:<br>
+    WhatsApp: <strong>+628131136185</strong><br>
     
-    const newData = await res.json();
-    
-    // Simpan state sebelum update
-    saveFormState();
-    
-    // Update data
-    layananData = newData;
-    
-    // Update kategori options tanpa mereset pilihan
-    const kategori = document.getElementById("kategori");
-    const currentKategori = kategori.value;
-    kategori.innerHTML = '<option value="">-- Pilih Kategori --</option>';
-    
-    for (const k in layananData) {
-      const opt = document.createElement("option");
-      opt.value = k;
-      opt.textContent = k;
-      kategori.appendChild(opt);
+  </div>
+
+  <!-- SYARAT & KETENTUAN -->
+  <div class="terms-container" id="termsContainer">
+    <div class="terms-header" id="termsHeader">
+      <div class="terms-check">
+        <input type="checkbox" id="termsCheckbox" aria-describedby="termsError">
+        <span class="terms-check-box" aria-hidden="true">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 7.2L5.5 10.2L11.5 3.8" stroke="#0b1220" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </div>
+      <label for="termsCheckbox">
+        Saya menyetujui
+        <span class="terms-link" id="termsLink">Syarat &amp; Ketentuan</span>
+        yang berlaku
+      </label>
+    </div>
+    <div class="terms-content" id="termsContent">
+      <div class="terms-content-inner" id="termsContentInner">
+        <div style="text-align:center;color:#64748b;padding:16px;">⏳ Memuat syarat &amp; ketentuan...</div>
+      </div>
+      <button class="terms-toggle" id="termsToggleBtn" type="button">📖 Baca Syarat &amp; Ketentuan</button>
+    </div>
+    <div class="terms-error" id="termsError">⚠️ Anda harus menyetujui syarat &amp; ketentuan terlebih dahulu!</div>
+  </div>
+
+  <button class="primary" id="btnBayar" type="button">Lanjut ke Pembayaran</button>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  // ===== MENU =====
+  const toggleBtn = document.getElementById('menuToggle');
+  const closeBtn = document.getElementById('menuClose');
+  const offcanvas = document.getElementById('siteMenu');
+  const overlay = document.getElementById('menuOverlay');
+
+  function openMenu() {
+    offcanvas.classList.add('open');
+    overlay.classList.add('show');
+    toggleBtn.classList.add('active');
+  }
+  function closeMenu() {
+    offcanvas.classList.remove('open');
+    overlay.classList.remove('show');
+    toggleBtn.classList.remove('active');
+  }
+
+  toggleBtn.addEventListener('click', () =>
+    offcanvas.classList.contains('open') ? closeMenu() : openMenu()
+  );
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  // ===== TERMS =====
+  const termsCheckbox = document.getElementById('termsCheckbox');
+  const termsError = document.getElementById('termsError');
+  const termsContent = document.getElementById('termsContent');
+  const termsContentInner = document.getElementById('termsContentInner');
+  const termsToggleBtn = document.getElementById('termsToggleBtn');
+  const termsLink = document.getElementById('termsLink');
+
+  let isTermsLoaded = false;
+  let requiresComment = false;
+  let selectedService = null;
+  let layananData = {};
+  let isLoading = false;
+  let refreshTimer = null;
+  let currentSort = 'asc'; // default: termurah
+
+  termsLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    window.open('/rules/', '_blank');
+  });
+
+  async function loadTerms() {
+    try {
+      const res = await fetch('/rules/?t=' + Date.now());
+      if (!res.ok) throw new Error('Gagal mengambil syarat & ketentuan');
+      const html = await res.text();
+      termsContentInner.innerHTML = html || 'Syarat & ketentuan belum tersedia.';
+      isTermsLoaded = true;
+    } catch (err) {
+      termsContentInner.innerHTML =
+        '<div style="color:#f87171">❌ Gagal memuat syarat & ketentuan.<br>' +
+        '<span style="font-size:12px;color:#64748b">' + (err.message || '') + '</span><br><br>' +
+        '<a href="/rules/" target="_blank" style="color:#06b6d4">📖 Buka di halaman terpisah</a></div>';
     }
-    
-    // Restore pilihan kategori jika masih valid
-    if (currentKategori && layananData[currentKategori]) {
-      kategori.value = currentKategori;
+  }
+
+  function toggleTerms(e) {
+    if (e) e.preventDefault();
+    const isOpen = termsContent.classList.contains('open');
+    if (!isOpen) {
+      if (!isTermsLoaded) loadTerms();
+      termsContent.classList.add('open');
+      termsToggleBtn.textContent = '📖 Sembunyikan';
+    } else {
+      termsContent.classList.remove('open');
+      termsToggleBtn.textContent = '📖 Baca Syarat & Ketentuan';
     }
-    
-    // Restore form state (termasuk layanan yang dipilih)
-    restoreFormState();
-    
-    // Jika layanan masih ada di data baru, update info
-    if (selectedService) {
-      const kategoriVal = document.getElementById('kategori').value;
-      const layananVal = document.getElementById('layanan').value;
-      if (kategoriVal && layananVal && layananData[kategoriVal]) {
-        const found = layananData[kategoriVal].find(l => String(l.id) === String(layananVal));
-        if (found) {
-          selectedService = found;
-          showInfo();
-          hitungTotal();
-        }
+  }
+
+  termsToggleBtn.addEventListener('click', toggleTerms);
+
+  function updateTermsUI() {
+    const container = document.getElementById('termsContainer');
+    if (termsCheckbox.checked) {
+      termsError.classList.remove('show');
+      container.classList.add('terms-ok');
+    } else {
+      container.classList.remove('terms-ok');
+    }
+  }
+
+  termsCheckbox.addEventListener('change', function () {
+    updateTermsUI();
+    if (this.checked) {
+      if (!termsContent.classList.contains('open') && !isTermsLoaded) {
+        loadTerms();
+        termsContent.classList.add('open');
+        termsToggleBtn.textContent = '📖 Sembunyikan';
       }
     }
-    
-    // Auto-refresh search jika ada
-    const searchVal = document.getElementById('search').value;
-    if (searchVal) {
-      searchLayanan();
-    }
-    
-    console.log('🔄 Data refreshed silently without resetting form');
-    
-  } catch (err) {
-    console.error('Error refresh data:', err);
+  });
+
+  // Init state
+  updateTermsUI();
+
+  // ===== DATA LAYANAN =====
+  const SERVICES_ENDPOINT = '/api/fayupedia-services';
+
+  function formatRp(n) {
+    return 'Rp' + Number(n || 0).toLocaleString('id-ID');
   }
-}
 
-// Fungsi load data awal (sama seperti refresh tapi tanpa interval)
-async function loadData() {
-  try {
-    const res = await fetch("/sosmed-2/list.json?ts=" + Date.now());
-    if (!res.ok) throw new Error("Gagal memuat list.json");
-    
-    layananData = await res.json();
-    
-    const kategori = document.getElementById("kategori");
-    kategori.innerHTML = '<option value="">-- Pilih Kategori --</option>';
-    
-    for (const k in layananData) {
-      const opt = document.createElement("option");
-      opt.value = k;
-      opt.textContent = k;
-      kategori.appendChild(opt);
-    }
-    
-    console.log('✅ Data layanan dimuat');
-    
-  } catch (err) {
-    console.error(err);
-    alert("Data layanan gagal dimuat.");
+  function calcTotal(jumlah, hargaPerThousand) {
+    return Math.round((Number(jumlah) / 1000) * Number(hargaPerThousand));
   }
-}
 
-// Jalankan saat halaman selesai dimuat
-window.addEventListener("load", function() {
-  loadData();
-  
-  // Auto refresh setiap 5 detik tanpa reset form
-  setInterval(refreshDataSilent, 5000);
-  
-  // Load syarat & ketentuan di background
-  loadTerms();
-});
+  function getActivePrice(service) {
+    if (!service) return 0;
+    if (service.diskon && service.diskon < service.pricePerFollower) {
+      return service.diskon;
+    }
+    return service.pricePerFollower;
+  }
 
-// Simpan state sebelum halaman di-refresh (manual)
-window.addEventListener('beforeunload', function() {
-  saveFormState();
-});
+  // ===== FUNGSI SORTIR =====
+  function getSortedServices(services, sortMode) {
+    if (!services || !Array.isArray(services)) return services;
+    const sorted = [...services];
+    if (sortMode === 'asc') {
+      sorted.sort((a, b) => getActivePrice(a) - getActivePrice(b));
+    } else if (sortMode === 'desc') {
+      sorted.sort((a, b) => getActivePrice(b) - getActivePrice(a));
+    }
+    return sorted;
+  }
 
-function loadLayanan(){    
-  const kategori=document.getElementById("kategori").value;    
-  const layanan=document.getElementById("layanan");    
-  layanan.innerHTML="<option value=''>-- Pilih Layanan --</option>";    
-    
-  if(kategori && layananData[kategori]){    
-    layananData[kategori].forEach(l=>{    
-      let opt=document.createElement("option");    
-      opt.value=l.id;    
-      let label = l.name + " (ID: "+l.id+")";  
-      if(l.diskon && l.diskon < l.pricePerFollower) {  
-        label += " 🔥 DISKON";  
-      }  
-      opt.textContent = label;  
-      layanan.appendChild(opt);    
-    });    
-  }    
-  document.getElementById("infoLayanan").innerHTML="";    
-  selectedService=null;    
-  // Save state setelah load layanan
-  saveFormState();
-}    
+  // ===== CUSTOM SELECT ENGINE =====
+  let activeCSelect = null;
+  let kategoriItems = []; // {value, label}
+  let layananItems = [];  // {value, label, meta, badges, service}
 
-function showInfo(){    
-  const kategori=document.getElementById("kategori").value;    
-  const layananID=document.getElementById("layanan").value;    
-    
-  if (!kategori || !layananData[kategori]) return;
-  
-  selectedService=layananData[kategori].find(l=>String(l.id)===String(layananID));    
-  if(!selectedService) return;  
-    
-  let priceDisplay = '';  
-  let diskonDisplay = '';  
-    
-  if(selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower) {  
-    priceDisplay = `<span class="price-strike">Rp${selectedService.pricePerFollower}</span> <span class="price-discount">Rp${selectedService.diskon}</span> <span class="discount-badge">Diskon</span>`;  
-    diskonDisplay = `<br>Harga Diskon: Rp${selectedService.diskon}/unit (hemat Rp${selectedService.pricePerFollower - selectedService.diskon})`;  
-  } else {  
-    priceDisplay = `Rp${selectedService.pricePerFollower}/unit`;  
-  }  
-    
-  document.getElementById("average").innerHTML = `<b>${selectedService.average || "-"}</b>`;  
-    
-  document.getElementById("infoLayanan").innerHTML=    
-  `<b>${selectedService.name}</b><br>    
-   ID Produk: ${selectedService.id}<br>    
-   Harga: ${priceDisplay}<br>    
-   ${diskonDisplay} <br><br>  
-   Min: ${selectedService.min} | Max: ${selectedService.max}<br>    
-   ${selectedService.desc || ''}`;    
-  
-  // Save state setelah show info
-  saveFormState();
-}    
+  function createPanelDOM(title) {
+    const backdrop = document.createElement('div');
+    backdrop.className = 'cselect-backdrop';
 
-function hitungTotal(){    
-  if(!selectedService) return;    
-  const jumlah=parseInt(document.getElementById("jumlah").value||"0");    
-  if(jumlah < selectedService.min || jumlah > selectedService.max){    
-    document.getElementById("total").value="Jumlah tidak valid!";    
-    return;    
-  }  
-    
-  const hargaAktif = (selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower)   
-    ? selectedService.diskon   
-    : selectedService.pricePerFollower;  
-    
-  document.getElementById("total").value=jumlah * hargaAktif;    
-  saveFormState();
-}    
+    const panel = document.createElement('div');
+    panel.className = 'cselect-panel';
+    panel.innerHTML =
+      '<div class="cselect-panel-header">' +
+        '<div class="cselect-handle"></div>' +
+        '<div class="cselect-panel-title">' + title + '</div>' +
+        '<input type="text" class="cselect-search" placeholder="Cari..." autocomplete="off" inputmode="search">' +
+      '</div>' +
+      '<ul class="cselect-list" role="listbox"></ul>';
 
-function generateTransactionID(){    
-  return `TRX${Date.now()}${Math.floor(Math.random()*1000)}`;    
-}    
+    return { backdrop: backdrop, panel: panel };
+  }
 
-function searchLayanan(){    
-  const q=document.getElementById("search").value.toLowerCase();    
-  const kategori=document.getElementById("kategori");    
-  const layanan=document.getElementById("layanan");    
-    
-  for(let k in layananData){    
-    for(let l of layananData[k]){    
-      if(l.name.toLowerCase().includes(q) || String(l.id).includes(q)){    
-        kategori.value=k;    
-        loadLayanan();    
-        layanan.value=l.id;    
-        showInfo();    
-        return;    
-      }    
-    }    
-  }    
-  saveFormState();
-}    
+  function closeAllCSelect() {
+    document.querySelectorAll('.cselect.open').forEach(function (el) {
+      el.classList.remove('open');
+      const trigger = el.querySelector('.cselect-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+    document.querySelectorAll('.cselect-panel.open').forEach(function (p) {
+      p.classList.remove('open');
+    });
+    document.querySelectorAll('.cselect-backdrop.show').forEach(function (b) {
+      b.classList.remove('show');
+    });
+    // remove panels from body after animation
+    setTimeout(function () {
+      document.querySelectorAll('.cselect-panel').forEach(function (p) {
+        if (!p.classList.contains('open') && p.parentNode) p.parentNode.removeChild(p);
+      });
+      document.querySelectorAll('.cselect-backdrop').forEach(function (b) {
+        if (!b.classList.contains('show') && b.parentNode) b.parentNode.removeChild(b);
+      });
+    }, 320);
+    activeCSelect = null;
+    document.body.style.overflow = '';
+  }
 
-function lanjutPembayaran(){    
-  // ===== VALIDASI SYARAT & KETENTUAN =====  
-  if (!termsCheckbox.checked) {  
-    termsError.classList.add('show');  
-    termsCheckbox.style.borderColor = 'var(--danger)';  
-    document.getElementById('termsContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });  
-    setTimeout(() => {  
-      termsError.classList.remove('show');  
-    }, 3000);  
-    return;  
-  }  
-    
-  if(!selectedService){alert("Pilih layanan terlebih dahulu!");return;}    
-    
-  const jumlah=parseInt(document.getElementById("jumlah").value||"0");    
-  if(jumlah < selectedService.min || jumlah > selectedService.max){    
-    alert(`Jumlah harus antara ${selectedService.min} dan ${selectedService.max}`);    
-    return;    
-  }    
-    
-  const trxID=generateTransactionID();    
-  const kategori=document.getElementById("kategori").value;    
-  const target=document.getElementById("target").value;    
-    
-  const hargaAktif = (selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower)   
-    ? selectedService.diskon   
-    : selectedService.pricePerFollower;  
-    
-  const total=jumlah * hargaAktif;    
-    
-  window.location.href=`payment/?trx=${trxID}&kategori=${kategori}&layanan=${selectedService.name}&id=${selectedService.id}&jumlah=${jumlah}&total=${total}&target=${encodeURIComponent(target)}`;    
-}    
-     
-document.addEventListener("keydown", function(e){  
-  if(e.key === "F12") e.preventDefault();  
-  if(e.ctrlKey && e.shiftKey && ["I","C","J"].includes(e.key)) e.preventDefault();  
-  if(e.ctrlKey && e.key === "u") e.preventDefault();  
-});  
+  function setTriggerLabel(cselectEl, text, isPlaceholder) {
+    const valEl = cselectEl.querySelector('.cselect-value');
+    if (!valEl) return;
+    valEl.textContent = text;
+    if (isPlaceholder) valEl.classList.add('placeholder');
+    else valEl.classList.remove('placeholder');
+  }
 
-setInterval(() => {  
-  const threshold = 160;  
-  if (window.devtoolsOpen) return;  
-  const widthThreshold = window.outerWidth - window.innerWidth > threshold;  
-  if (widthThreshold && !/Android|iPhone|iPad/i.test(navigator.userAgent)) {  
-    document.body.innerHTML = "<h1 style='color:gold;text-align:center;margin-top:40vh;'>🚫 Developer Tools Terdeteksi</h1>";  
-  }  
-}, 2000);  
-    
-</script>    
+  function renderList(listEl, items, selectedValue, onPick) {
+    listEl.innerHTML = '';
+    if (!items.length) {
+      listEl.innerHTML = '<li class="cselect-empty">Tidak ada hasil</li>';
+      return;
+    }
+    items.forEach(function (item) {
+      const li = document.createElement('li');
+      li.className = 'cselect-item' + (String(item.value) === String(selectedValue) ? ' selected' : '');
+      li.setAttribute('role', 'option');
+      li.dataset.value = item.value;
 
-</body>    
+      let badgesHtml = '';
+      if (item.badges && item.badges.length) {
+        item.badges.forEach(function (b) {
+          badgesHtml += '<span class="badge ' + b.cls + '">' + b.text + '</span>';
+        });
+      }
+
+      li.innerHTML =
+        '<span class="cselect-radio"></span>' +
+        '<span class="cselect-item-text">' +
+          item.label + badgesHtml +
+          (item.meta ? '<span class="cselect-item-meta">' + item.meta + '</span>' : '') +
+        '</span>';
+
+      li.addEventListener('click', function () {
+        onPick(item);
+      });
+      listEl.appendChild(li);
+    });
+  }
+
+  function openCSelect(cselectEl, title, items, selectedValue, onPick) {
+    closeAllCSelect();
+
+    const isMobile = window.matchMedia('(max-width: 639px)').matches;
+    const { backdrop, panel } = createPanelDOM(title);
+    const listEl = panel.querySelector('.cselect-list');
+    const searchEl = panel.querySelector('.cselect-search');
+
+    function filterAndRender(q) {
+      const query = (q || '').toLowerCase().trim();
+      const filtered = !query
+        ? items
+        : items.filter(function (it) {
+            return (
+              String(it.label).toLowerCase().includes(query) ||
+              String(it.value).toLowerCase().includes(query) ||
+              (it.meta && String(it.meta).toLowerCase().includes(query))
+            );
+          });
+      renderList(listEl, filtered, selectedValue, function (item) {
+        onPick(item);
+        closeAllCSelect();
+      });
+    }
+
+    filterAndRender('');
+
+    searchEl.addEventListener('input', function () {
+      filterAndRender(searchEl.value);
+    });
+
+    backdrop.addEventListener('click', closeAllCSelect);
+
+    if (isMobile) {
+      document.body.appendChild(backdrop);
+      document.body.appendChild(panel);
+      document.body.style.overflow = 'hidden';
+    } else {
+      cselectEl.appendChild(panel);
+      document.body.appendChild(backdrop);
+    }
+
+    // force reflow then open
+    void panel.offsetHeight;
+    requestAnimationFrame(function () {
+      backdrop.classList.add('show');
+      panel.classList.add('open');
+      cselectEl.classList.add('open');
+      cselectEl.querySelector('.cselect-trigger').setAttribute('aria-expanded', 'true');
+      activeCSelect = cselectEl;
+      setTimeout(function () { searchEl.focus(); }, 280);
+    });
+  }
+
+  // ===== KATEGORI =====
+  function populateKategori(keepValue) {
+    const hidden = document.getElementById('kategori');
+    const current = keepValue ? hidden.value : '';
+    const sortedKeys = Object.keys(layananData).sort(function (a, b) {
+      return a.localeCompare(b, 'id');
+    });
+
+    kategoriItems = sortedKeys.map(function (k) {
+      return { value: k, label: k };
+    });
+
+    if (current && layananData[current]) {
+      hidden.value = current;
+      setTriggerLabel(document.getElementById('cselectKategori'), current, false);
+    } else if (!keepValue) {
+      hidden.value = '';
+      setTriggerLabel(
+        document.getElementById('cselectKategori'),
+        document.getElementById('cselectKategori').dataset.placeholder,
+        true
+      );
+    }
+  }
+
+  function openKategoriPicker() {
+    const hidden = document.getElementById('kategori');
+    openCSelect(
+      document.getElementById('cselectKategori'),
+      'Pilih Kategori',
+      kategoriItems,
+      hidden.value,
+      function (item) {
+        hidden.value = item.value;
+        setTriggerLabel(document.getElementById('cselectKategori'), item.label, false);
+        loadLayanan();
+      }
+    );
+  }
+
+  // ===== LAYANAN =====
+  function loadLayanan() {
+    const kategori = document.getElementById('kategori').value;
+    const hidden = document.getElementById('layanan');
+    const sortMode = document.getElementById('sortHarga').value;
+    currentSort = sortMode;
+
+    layananItems = [];
+    hidden.value = '';
+    setTriggerLabel(
+      document.getElementById('cselectLayanan'),
+      document.getElementById('cselectLayanan').dataset.placeholder,
+      true
+    );
+
+    if (kategori && layananData[kategori]) {
+      const services = layananData[kategori];
+      const sortedServices = getSortedServices(services, sortMode);
+
+      layananItems = sortedServices.map(function (l) {
+        const harga = getActivePrice(l);
+        const badges = [];
+        if (l.diskon && l.diskon < l.pricePerFollower) {
+          badges.push({ cls: 'badge-discount', text: 'Diskon' });
+        }
+        if (l.comment === true) {
+          badges.push({ cls: 'badge-comment', text: 'Komentar' });
+        }
+        return {
+          value: l.id,
+          label: l.name || ('Layanan #' + l.id),
+          meta: formatRp(harga) + ' / 1rb' + (l.id ? '  ·  ID ' + l.id : ''),
+          badges: badges,
+          service: l
+        };
+      });
+
+      // Auto-select first
+      if (layananItems.length > 0) {
+        const first = layananItems[0];
+        hidden.value = first.value;
+        setTriggerLabel(document.getElementById('cselectLayanan'), first.label, false);
+        showInfo();
+      }
+    } else {
+      document.getElementById('infoLayanan').innerHTML = '';
+      document.getElementById('average').textContent = '—';
+      selectedService = null;
+      document.getElementById('commentSection').style.display = 'none';
+      requiresComment = false;
+    }
+  }
+
+  function openLayananPicker() {
+    const hidden = document.getElementById('layanan');
+    if (!layananItems.length) {
+      alert('Pilih kategori terlebih dahulu!');
+      return;
+    }
+    openCSelect(
+      document.getElementById('cselectLayanan'),
+      'Pilih Layanan',
+      layananItems,
+      hidden.value,
+      function (item) {
+        hidden.value = item.value;
+        setTriggerLabel(document.getElementById('cselectLayanan'), item.label, false);
+        showInfo();
+      }
+    );
+  }
+
+  // ===== SHOW INFO =====
+  function showInfo() {
+    const kategori = document.getElementById('kategori').value;
+    const layananID = document.getElementById('layanan').value;
+    if (!kategori || !layananData[kategori]) return;
+
+    selectedService = layananData[kategori].find(l => String(l.id) === String(layananID));
+    if (!selectedService) return;
+
+    let priceDisplay = '';
+    let diskonDisplay = '';
+    if (selectedService.diskon && selectedService.diskon < selectedService.pricePerFollower) {
+      priceDisplay =
+        '<span class="price-strike">' + formatRp(selectedService.pricePerFollower) + '</span> ' +
+        '<span class="price-discount">' + formatRp(selectedService.diskon) + '</span> ' +
+        '<span class="discount-badge">Diskon</span> <span class="text-muted">/ 1.000</span>';
+      diskonDisplay =
+        '<br>Harga Diskon: ' + formatRp(selectedService.diskon) +
+        ' / 1.000 (hemat ' + formatRp(selectedService.pricePerFollower - selectedService.diskon) + ')';
+    } else {
+      priceDisplay = formatRp(selectedService.pricePerFollower) + ' <span class="text-muted">/ 1.000 unit</span>';
+    }
+
+    requiresComment = selectedService.comment === true;
+    const commentSection = document.getElementById('commentSection');
+    const commentInfo = document.getElementById('commentInfo');
+
+    if (requiresComment) {
+      commentSection.style.display = 'block';
+      commentInfo.classList.add('show');
+      document.getElementById('commentRequired').textContent = '0';
+      document.getElementById('commentCount').textContent = '0';
+      validateComments();
+    } else {
+      commentSection.style.display = 'none';
+      commentInfo.classList.remove('show');
+    }
+
+    document.getElementById('average').innerHTML = '<b>' + (selectedService.average || '-') + '</b>';
+    document.getElementById('infoLayanan').innerHTML =
+      '<b>' + selectedService.name + '</b><br>' +
+      'ID Produk: ' + selectedService.id + '<br>' +
+      'Harga: ' + priceDisplay + '<br>' +
+      diskonDisplay + '<br><br>' +
+      'Min: ' + selectedService.min.toLocaleString('id-ID') +
+      ' | Max: ' + selectedService.max.toLocaleString('id-ID') + '<br>' +
+      (selectedService.desc || '');
+
+    hitungTotal();
+  }
+
+  // ===== HITUNG TOTAL =====
+  function hitungTotal() {
+    if (!selectedService) return;
+    const jumlah = parseInt(document.getElementById('jumlah').value || '0', 10);
+    if (jumlah < selectedService.min || jumlah > selectedService.max) {
+      document.getElementById('total').value = 'Jumlah tidak valid!';
+      return;
+    }
+    const hargaAktif = getActivePrice(selectedService);
+    document.getElementById('total').value = calcTotal(jumlah, hargaAktif);
+  }
+
+  function validateComments() {
+    if (!requiresComment) return;
+
+    const commentsEl = document.getElementById('comments');
+    const commentCountEl = document.getElementById('commentCount');
+    const commentRequiredEl = document.getElementById('commentRequired');
+    const commentStatusEl = document.getElementById('commentStatus');
+    const commentInfo = document.getElementById('commentInfo');
+    const jumlah = parseInt(document.getElementById('jumlah').value || '0', 10);
+
+    const lines = commentsEl.value.split('\n').filter(line => line.trim() !== '');
+    const count = lines.length;
+
+    commentCountEl.textContent = count;
+    commentRequiredEl.textContent = jumlah;
+
+    if (jumlah === 0) {
+      commentStatusEl.innerHTML = ' ⚠️ Masukkan jumlah pesanan terlebih dahulu';
+      commentStatusEl.style.color = '#fbbf24';
+      return;
+    }
+
+    if (count === jumlah) {
+      commentStatusEl.innerHTML = ' ✅ Jumlah komentar sesuai!';
+      commentStatusEl.style.color = '#22c55e';
+    } else if (count < jumlah) {
+      commentStatusEl.innerHTML = ' ⚠️ Kurang ' + (jumlah - count) + ' komentar lagi';
+      commentStatusEl.style.color = '#fbbf24';
+    } else {
+      commentStatusEl.innerHTML = ' ❌ Terlalu banyak! Maksimal ' + jumlah + ' komentar';
+      commentStatusEl.style.color = '#f87171';
+    }
+  }
+
+  function onJumlahChange() {
+    hitungTotal();
+    if (requiresComment) {
+      const jumlah = parseInt(document.getElementById('jumlah').value || '0', 10);
+      document.getElementById('commentRequired').textContent = jumlah;
+      validateComments();
+    }
+  }
+
+  // ===== SEARCH =====
+  let searchTimer = null;
+  function searchLayanan() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function () {
+      const q = document.getElementById('search').value.toLowerCase().trim();
+      if (!q) return;
+
+      for (const k in layananData) {
+        for (let i = 0; i < layananData[k].length; i++) {
+          const l = layananData[k][i];
+          if (l.name.toLowerCase().includes(q) || String(l.id).includes(q)) {
+            document.getElementById('kategori').value = k;
+            setTriggerLabel(document.getElementById('cselectKategori'), k, false);
+            loadLayanan();
+            // select matching service
+            document.getElementById('layanan').value = l.id;
+            setTriggerLabel(document.getElementById('cselectLayanan'), l.name, false);
+            showInfo();
+            return;
+          }
+        }
+      }
+    }, 280);
+  }
+
+  // ===== LOAD DATA =====
+  async function loadData(silent) {
+    if (isLoading) return;
+    isLoading = true;
+    try {
+      const res = await fetch(SERVICES_ENDPOINT + '?ts=' + Date.now());
+      if (!res.ok) throw new Error('Gagal memuat data layanan');
+      const data = await res.json();
+      if (data && data.status === false) {
+        throw new Error(data.msg || 'Provider error');
+      }
+      layananData = data;
+      populateKategori(true);
+
+      // Load layanan dengan sortir default
+      loadLayanan();
+
+      if (selectedService) {
+        const kategoriVal = document.getElementById('kategori').value;
+        const layananVal = document.getElementById('layanan').value;
+        if (kategoriVal && layananVal && layananData[kategoriVal]) {
+          const found = layananData[kategoriVal].find(l => String(l.id) === String(layananVal));
+          if (found) {
+            selectedService = found;
+            setTriggerLabel(document.getElementById('cselectLayanan'), found.name, false);
+            showInfo();
+            hitungTotal();
+          }
+        }
+      }
+    } catch (err) {
+      if (!silent) {
+        console.error(err);
+        alert('Data layanan gagal dimuat.\n' + (err.message || ''));
+      }
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  // ===== SMART REFRESH =====
+  function startSmartRefresh() {
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = setInterval(function () {
+      if (document.visibilityState === 'visible') {
+        loadData(true);
+      }
+    }, 60000);
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') {
+      loadData(true);
+    }
+  });
+
+  // ===== GENERATE TRX =====
+  function generateTransactionID() {
+    return 'TRX' + Date.now() + Math.floor(Math.random() * 1000);
+  }
+
+  // ===== LANJUT PEMBAYARAN =====
+  function lanjutPembayaran() {
+    if (!termsCheckbox.checked) {
+      termsError.classList.add('show');
+      document.getElementById('termsContainer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(function () { termsError.classList.remove('show'); }, 3000);
+      return;
+    }
+    if (!selectedService) {
+      alert('Pilih layanan terlebih dahulu!');
+      return;
+    }
+
+    const jumlah = parseInt(document.getElementById('jumlah').value || '0', 10);
+    if (jumlah < selectedService.min || jumlah > selectedService.max) {
+      alert('Jumlah harus antara ' + selectedService.min + ' dan ' + selectedService.max);
+      return;
+    }
+
+    if (requiresComment) {
+      const lines = document.getElementById('comments').value
+        .split('\n')
+        .filter(line => line.trim() !== '');
+      if (lines.length === 0) {
+        alert('⚠️ Layanan ini membutuhkan komentar!');
+        document.getElementById('comments').focus();
+        return;
+      }
+      if (lines.length !== jumlah) {
+        alert('⚠️ Jumlah komentar (' + lines.length + ') harus sama dengan jumlah pesanan (' + jumlah + ')!');
+        document.getElementById('comments').focus();
+        return;
+      }
+    }
+
+    const trxID = generateTransactionID();
+    const kategori = document.getElementById('kategori').value;
+    const target = document.getElementById('target').value;
+    const hargaAktif = getActivePrice(selectedService);
+    const total = calcTotal(jumlah, hargaAktif);
+
+    let url =
+      'payment/?trx=' + trxID +
+      '&kategori=' + encodeURIComponent(kategori) +
+      '&layanan=' + encodeURIComponent(selectedService.name) +
+      '&id=' + selectedService.id +
+      '&jumlah=' + jumlah +
+      '&total=' + total +
+      '&target=' + encodeURIComponent(target);
+
+    if (requiresComment) {
+      const lines = document.getElementById('comments').value
+        .split('\n')
+        .filter(line => line.trim() !== '');
+      url += '&comment=' + encodeURIComponent(lines.join('\r\n'));
+    }
+
+    window.location.href = url;
+  }
+
+  // ===== EVENT BINDING =====
+  document.getElementById('cselectKategori').querySelector('.cselect-trigger')
+    .addEventListener('click', openKategoriPicker);
+  document.getElementById('cselectLayanan').querySelector('.cselect-trigger')
+    .addEventListener('click', openLayananPicker);
+  document.getElementById('sortHarga').addEventListener('change', loadLayanan);
+  document.getElementById('jumlah').addEventListener('input', onJumlahChange);
+  document.getElementById('comments').addEventListener('input', validateComments);
+  document.getElementById('search').addEventListener('input', searchLayanan);
+  document.getElementById('btnBayar').addEventListener('click', lanjutPembayaran);
+
+  // Close on Escape
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAllCSelect();
+  });
+
+  // ===== INIT =====
+  window.addEventListener('load', function () {
+    loadData(false);
+    startSmartRefresh();
+    loadTerms();
+  });
+
+  window.addEventListener('beforeunload', function () {
+    if (refreshTimer) clearInterval(refreshTimer);
+  });
+})();
+</script>
+</body>
 </html>
