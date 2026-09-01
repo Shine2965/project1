@@ -65,7 +65,7 @@ export default async function handler(req, res) {
 
     // Group by category + markup 5% + map ke format frontend
     const grouped = {};
-    const MARKUP = 1.08; // +5%
+    const MARKUP = 1.10; // +5%
 
     for (const s of data.services) {
       const category = (s.category || 'Lainnya').trim() || 'Lainnya';
