@@ -1045,7 +1045,7 @@ async function sendOrderNotificationToDiscord(result) {
     const msg = result.msg || `Pesanan dengan id #${orderId} berhasil dibuat.`;
     const commentInfo = comment ? `\n📝 **Komentar:** ${comment}` : '';
     
-    const message = `📦 **ORDER FAYUPEDIA BERHASIL**
+    const message = `📦 **ORDER Dimas Str BERHASIL**
 ━━━━━━━━━━━━━━━━━━━━━
 🆔 **ID Transaksi:** ${trx}
 📋 **Layanan:** ${layanan}
@@ -1075,7 +1075,7 @@ async function sendOrderErrorToDiscord(errorMsg) {
   try {
     const commentInfo = comment ? `\n📝 **Komentar:** ${comment}` : '';
     
-    const message = `❌ **ORDER FAYUPEDIA GAGAL**
+    const message = `❌ **ORDER Dimas Str GAGAL**
 ━━━━━━━━━━━━━━━━━━━━━
 🆔 **ID Transaksi:** ${trx}
 📋 **Layanan:** ${layanan}
